@@ -18,10 +18,12 @@
         [StringLength(50, ErrorMessage = "El nombre del material no puede tener más de 50 caracteres.")]
         public string Material { get; set; }
 
-        //public List<AlquilarItem> AlquilarItem { get; set; }
-        //public List<ReparacionItem> ItemsReparacion { get; set; }
-        //public List<OfertaItem> OfertaItems { get; set; }
-        public int FabricanteId { get; set; }
-        public List<ComprarItem> CompraItems { get; set; }
+        //public IList<AlquilarItem> AlquilarItem { get; set; }
+        //public IList<ReparacionItem> ItemsReparacion { get; set; }
+        //public IList<OfertaItem> OfertaItems { get; set; }
+        public Fabricante FabricanteId { get; set; }
+        public IList<CompraItem> CompraItems { get; set; }
     }
+
+   
 }
