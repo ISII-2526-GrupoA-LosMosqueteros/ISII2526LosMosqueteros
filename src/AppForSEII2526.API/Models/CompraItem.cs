@@ -1,5 +1,7 @@
 ﻿namespace AppForSEII2526.API.Models
 {
+
+    [PrimaryKey(nameof(IdCompra), nameof(IdHerramienta))]
     public class CompraItem
     {
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad minima es 1")]
