@@ -20,16 +20,11 @@
         [Range(0.05, float.MaxValue, ErrorMessage = "El precio minimo es 0.05")]
         [Precision(10, 2)]
 
-        public float PrecioTotal { get; set; }
+        public decimal PrecioTotal { get; set; }
         public int? Telefono { get; set; }
-        public IList<CompraItem> CompraItems { get; set; }
-        public TiposMetodoPago TipoMetodoPago { get; set; }
+        public IList<CompraItem> CompraItem { get; set; }
+        //public TiposMetodoPago TipoMetodoPago { get; set; }
     }
 
-    public enum TiposMetodoPago
-    {
-        TarjetaCredito,
-        PayPal,
-        Efectivo
-    }
+    
 }

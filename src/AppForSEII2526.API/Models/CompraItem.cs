@@ -11,7 +11,7 @@
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(0.05, float.MaxValue, ErrorMessage = "El precio minimo es 0.05")]
         [Precision(10, 2)]
-        public float Precio { get; set; }
+        public decimal Precio { get; set; }
 
         public int IdHerramienta { get; set; }
         public int IdCompra { get; set; }

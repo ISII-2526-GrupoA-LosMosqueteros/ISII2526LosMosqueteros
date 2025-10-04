@@ -10,7 +10,7 @@
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(0.05, float.MaxValue, ErrorMessage = "El precio minimo es 0.05")]
         [Precision(10, 2)]
-        public float Precio { get; set; }
+        public decimal Precio { get; set; }
 
 
         public string? TiempoReparacion { get; set; }
@@ -21,8 +21,8 @@
         //public IList<AlquilarItem> AlquilarItem { get; set; }
         //public IList<ReparacionItem> ItemsReparacion { get; set; }
         //public IList<OfertaItem> OfertaItems { get; set; }
-        public Fabricante FabricanteId { get; set; }
-        public IList<CompraItem> CompraItems { get; set; }
+        public Fabricante Fabricante { get; set; }
+        public IList<CompraItem> CompraItem { get; set; }
     }
 
    
