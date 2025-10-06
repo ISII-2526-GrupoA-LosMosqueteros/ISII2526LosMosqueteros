@@ -20,7 +20,7 @@
 
         public IList<AlquilarItem> AlquilarItem { get; set; }
         public IList<ReparacionItem> ReparacionItems { get; set; }
-        //public IList<OfertaItem> OfertaItems { get; set; }
+        public IList<OfertaItem> OfertaItems { get; set; }
         public Fabricante Fabricante { get; set; }
         public IList<CompraItem> CompraItems { get; set; }
     }
