@@ -19,10 +19,10 @@
         public string Material { get; set; }
 
         public IList<AlquilarItem> AlquilarItem { get; set; }
-        //public IList<ReparacionItem> ItemsReparacion { get; set; }
+        public IList<ReparacionItem> ReparacionItems { get; set; }
         //public IList<OfertaItem> OfertaItems { get; set; }
         public Fabricante Fabricante { get; set; }
-        //public IList<CompraItem> CompraItems { get; set; }
+        public IList<CompraItem> CompraItems { get; set; }
     }
     
 
