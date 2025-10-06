@@ -26,5 +26,5 @@
         //public TiposMetodoPago TipoMetodoPago { get; set; }
     }
 
-    
+
 }

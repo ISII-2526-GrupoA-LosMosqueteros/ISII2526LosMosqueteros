@@ -5,9 +5,9 @@
     {
         public int Id { get; set; }
 
-        [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres." )]
+        [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
         public string Nombre { get; set; }
 
-        public IList<Herramienta> Herramienta { get; set; }
+        public IList<Herramienta> Herramientas { get; set; }
     }
 }
