@@ -37,7 +37,7 @@
   <Class Name="AppForSEII2526.API.Models.Herramienta">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAAAAAAAAAAgAASAAAQEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEACAAAAAAAAAAAAAAAAgAASCAAQEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Herramienta.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -48,9 +48,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Enum Name="AppForSEII2526.API.Models.TiposMetodoPago">
-    <Position X="9.5" Y="4" Width="1.5" />
+    <Position X="9.5" Y="4.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Alquiler.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -41,8 +41,8 @@
       <FileName>Models\Oferta.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="TiposMetodoPago" />
       <Property Name="TiposDirigdaOferta" />
+      <Property Name="TiposMetodoPago" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="OfertaItems" />
@@ -51,7 +51,7 @@
   <Enum Name="AppForSEII2526.API.Models.TiposDirigdaOferta">
     <Position X="8.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Oferta.cs</FileName>
     </TypeIdentifier>
   </Enum>

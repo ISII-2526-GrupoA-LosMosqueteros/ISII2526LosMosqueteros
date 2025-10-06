@@ -23,7 +23,7 @@
         public decimal PrecioTotal { get; set; }
         public int? Telefono { get; set; }
         public IList<CompraItem> CompraItem { get; set; }
-        //public TiposMetodoPago TipoMetodoPago { get; set; }
+        public TiposMetodoPago TipoMetodoPago { get; set; }
     }
 
 
