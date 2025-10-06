@@ -3,7 +3,7 @@
     public class Herramienta
     {
         public int Id { get; set; }
-
+  
         [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
         public string Nombre { get; set; }
 
@@ -18,12 +18,13 @@
         [StringLength(50, ErrorMessage = "El nombre del material no puede tener más de 50 caracteres.")]
         public string Material { get; set; }
 
-        //public IList<AlquilarItem> AlquilarItem { get; set; }
+        public IList<AlquilarItem> AlquilarItem { get; set; }
         //public IList<ReparacionItem> ItemsReparacion { get; set; }
         //public IList<OfertaItem> OfertaItems { get; set; }
         public Fabricante Fabricante { get; set; }
-        public IList<CompraItem> CompraItem { get; set; }
+        public IList<CompraItem> CompraItems { get; set; }
+       
     }
+    
 
-   
 }
