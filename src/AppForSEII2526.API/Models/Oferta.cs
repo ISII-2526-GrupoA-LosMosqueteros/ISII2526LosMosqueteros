@@ -21,6 +21,7 @@
         public TiposDirigdaOferta? TiposDirigdaOferta { get; set; }
 
         public TiposMetodoPago TiposMetodoPago { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
     public enum TiposDirigdaOferta
     {

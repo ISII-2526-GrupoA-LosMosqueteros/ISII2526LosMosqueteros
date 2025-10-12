@@ -4,8 +4,7 @@ namespace AppForSEII2526.API.Models
 {
     public class Alquiler
     {
-        public String ApellidoCliente { get; set; }
-        public String? Correo { get; set; }
+
         public String DireccionEnvio { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
@@ -21,9 +20,7 @@ namespace AppForSEII2526.API.Models
         public DateTime FechaInicio { get; set; }
 
         public int Id {  get; set; }
-        
-        public String NombreCliente { get; set; }
-        public String? NumeroTelefono {  get; set; }
+
 
         public int Periodo { get; set; }
 
