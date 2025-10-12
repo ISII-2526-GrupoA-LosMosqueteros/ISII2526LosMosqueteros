@@ -1,10 +1,10 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-    [PrimaryKey(nameof(IdOferta), nameof(IdHerramienta))]
+    [PrimaryKey(nameof(OfertaId), nameof(HerramientaId))]
     public class OfertaItem
     {
-        public int IdHerramienta { get; set; }
-        public int IdOferta { get; set; }
+        public int HerramientaId { get; set; }
+        public int OfertaId { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(0, 100, ErrorMessage = "El porcentaje debe estar entre 0 y 100")]

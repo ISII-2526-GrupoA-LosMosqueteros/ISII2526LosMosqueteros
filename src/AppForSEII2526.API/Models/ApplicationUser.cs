@@ -11,13 +11,14 @@ public class ApplicationUser : IdentityUser {
     public string Surname { get; set; }
 
     [Display(Name = "Correo Electronico")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [Display(Name = "Telefono")]
-    public string Phone { get; set; }
+    public string? Phone { get; set; }
 
     public IList<Reparacion> Reparaciones { get; set; }
     public IList<Compra> Compras { get; set; }
     public IList<Alquiler> Alquileres { get; set; }
+    public IList<Oferta> Ofertas { get; set; }
 
 }
