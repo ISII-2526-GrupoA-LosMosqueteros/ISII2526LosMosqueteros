@@ -35,6 +35,7 @@ namespace AppForSEII2526.API.Models
         public IList<AlquilarItem> AlquilarItems { get; set; }
         
         public TiposMetodoPago TiposMetodoPago { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
     public enum TiposMetodoPago
     {
