@@ -17,4 +17,5 @@ public class ApplicationUser : IdentityUser {
     public string Phone { get; set; }
 
     public IList<Reparacion> Reparaciones { get; set; }
+    public IList<Compra> Compras { get; set; }
 }
