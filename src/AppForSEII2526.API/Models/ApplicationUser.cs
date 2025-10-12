@@ -18,4 +18,6 @@ public class ApplicationUser : IdentityUser {
 
     public IList<Reparacion> Reparaciones { get; set; }
     public IList<Compra> Compras { get; set; }
+    public IList<Alquiler> Alquileres { get; set; }
+
 }

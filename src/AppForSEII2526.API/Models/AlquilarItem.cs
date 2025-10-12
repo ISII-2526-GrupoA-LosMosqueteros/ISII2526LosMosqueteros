@@ -1,6 +1,6 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-    [PrimaryKey(nameof(IdAlquiler), nameof(IdHerramienta))]
+    [PrimaryKey(nameof(AlquilerId), nameof(HerramientaId))]
     public class AlquilarItem
     {
 
@@ -8,8 +8,8 @@
         [Range(0, int.MaxValue, ErrorMessage = "La minima cantidad para alquilar es 1")]
         public int Cantidad { get; set; }
 
-        public int IdAlquiler { get; set; }
-        public int IdHerramienta { get; set; } 
+        public int AlquilerId { get; set; }
+        public int HerramientaId { get; set; } 
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(0.5, 100, ErrorMessage = "Minimo precio es 0.5 y el maximo 100")]

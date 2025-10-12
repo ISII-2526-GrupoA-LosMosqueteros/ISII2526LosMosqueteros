@@ -3,7 +3,7 @@
   <Class Name="AppForSEII2526.API.Models.AlquilarItem">
     <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEABAAAAAAAAAAAAAAQABIAAAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAEEBAAAAACAAAAAAAAQAAAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Models\AlquilarItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -14,11 +14,12 @@
   <Class Name="AppForSEII2526.API.Models.Alquiler">
     <Position X="9.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACSQAEAAAAAAAAABAAAEAAAoAAAAgAAACAAAAgEAA=</HashCode>
+      <HashCode>AAACSQAEAAAAAAAQABAAAEAAAoAAAAgAAACAAAAgEAA=</HashCode>
       <FileName>Models\Alquiler.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="TiposMetodoPago" />
+      <Property Name="ApplicationUser" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="AlquilarItems" />
@@ -37,7 +38,7 @@
   <Class Name="AppForSEII2526.API.Models.Herramienta">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAAAAAAAAAAgAASCAAQEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEACAAAAAAAAAAAAAAAAgAASGAAQEAAAAAAAAIAAAAA=</HashCode>
       <FileName>Models\Herramienta.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -47,10 +48,20 @@
       <Property Name="AlquilarItem" />
     </ShowAsCollectionAssociation>
   </Class>
+  <Class Name="AppForSEII2526.API.Models.ApplicationUser">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAiAAAAAAAAAAAAQABAAAAAAACAAAIAAAAAA=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Alquileres" />
+    </ShowAsCollectionAssociation>
+  </Class>
   <Enum Name="AppForSEII2526.API.Models.TiposMetodoPago">
     <Position X="9.5" Y="4.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAABAAA=</HashCode>
       <FileName>Models\Alquiler.cs</FileName>
     </TypeIdentifier>
   </Enum>
