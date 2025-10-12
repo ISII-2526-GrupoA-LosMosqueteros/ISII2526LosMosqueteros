@@ -12,4 +12,9 @@ public class ApplicationUser : IdentityUser {
 
     [Display(Name = "Correo Electronico")]
     public string Email { get; set; }
+
+    [Display(Name = "Telefono")]
+    public string Phone { get; set; }
+
+    public IList<Reparacion> Reparaciones { get; set; }
 }
