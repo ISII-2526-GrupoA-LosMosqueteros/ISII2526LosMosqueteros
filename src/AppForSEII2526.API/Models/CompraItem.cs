@@ -1,7 +1,7 @@
 ﻿namespace AppForSEII2526.API.Models
 {
 
-    [PrimaryKey(nameof(IdCompra), nameof(IdHerramienta))]
+    [PrimaryKey(nameof(CompraId), nameof(HerramientaId))]
     public class CompraItem
     {
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad minima es 1")]
@@ -15,8 +15,8 @@
         [Precision(10, 2)]
         public decimal Precio { get; set; }
 
-        public int IdHerramienta { get; set; }
-        public int IdCompra { get; set; }
+        public int HerramientaId { get; set; }
+        public int CompraId { get; set; }
 
         public Herramienta Herramienta { get; set; }
         public Compra Compra { get; set; }
