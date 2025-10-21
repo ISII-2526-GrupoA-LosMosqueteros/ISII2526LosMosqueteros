@@ -28,7 +28,7 @@ namespace AppForSEII2526.API.Controllers
             var herramientas = await _context.Herramientas
                 .Include(h => h.Fabricante)
                 .Where(h => (h.Nombre.Contains(filtroNombre) || filtroNombre == null)
-                    && (h.TiempoReparacion == filtroTiempoReparacion || filtroTiempoReparacion == null))
+                    && (h.TiempoReparacion <= filtroTiempoReparacion || filtroTiempoReparacion == null))
                 .OrderBy(h => h.TiempoReparacion)
                 .Select(h => new HerramientaParaRepararDTO(
                     h.Id,
