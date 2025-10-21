@@ -8,9 +8,8 @@ namespace AppForSEII2526.API.Controllers
     [ApiController]
     public class HerramientasController : ControllerBase
     {
-        //used to enable your controller to access to the database
+
         private readonly ApplicationDbContext _context;
-        //used to log any information when your system is running
         private readonly ILogger<HerramientasController> _logger;
 
         public HerramientasController(ApplicationDbContext context, ILogger<HerramientasController> logger)
@@ -19,12 +18,13 @@ namespace AppForSEII2526.API.Controllers
             _logger = logger;
         }
 
-        // Devuelve la información usando DTOs para el caso de reparar una herramienta CU2
+      
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientaParaRepararDTO>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetHerramientasParaReparar(string? filtroNombre, int? filtroTiempoReparacion)
         {
+           
             var herramientas = await _context.Herramientas
                 .Include(h => h.Fabricante)
                 .Where(h => (h.Nombre.Contains(filtroNombre) || filtroNombre == null)
@@ -41,6 +41,23 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetHerramientasParaComprar(decimal? filtroPrecio, string? filtroMaterial)
+        {
+            var herramientas = await _context.Herramientas
+                .Include(h => h.Fabricante)
+                .Where(h => (h.Precio <= filtroPrecio || filtroPrecio == null)
+                    && (h.Material.Contains(filtroMaterial) || filtroMaterial == null)
+                 )
+                .OrderBy(h => h.Nombre)
+                .Select(h => new HerramientasParaComprarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
+                .ToListAsync();
+            return Ok(herramientas);
+
+        }
+       
 
     }
 }
