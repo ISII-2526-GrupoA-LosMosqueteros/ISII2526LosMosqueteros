@@ -19,4 +19,4 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Oferta> Ofertas { get; set; }
     public DbSet<OfertaItem> OfertaItems { get; set; }
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-    }
+}
