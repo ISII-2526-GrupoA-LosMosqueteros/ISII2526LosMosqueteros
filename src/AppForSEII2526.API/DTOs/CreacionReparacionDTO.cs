@@ -1,24 +1,18 @@
 ﻿namespace AppForSEII2526.API.DTOs
 {
-    public class DetalleRepararDTO
+    public class CreacionReparacionDTO
     {
-        public DetalleRepararDTO(int id, DateTime fechaEntrega, DateTime fechaRecogida,
-            decimal precioTotal, string name, string surname, IList<RepararItemDTO> repararItem)
+        public CreacionReparacionDTO(DateTime fechaEntrega, DateTime fechaRecogida,
+            decimal precioTotal, string name, string surname, IList<RepararItemDTO> repararItem, TiposMetodoPago tiposMetodoPago)
         {
-            Id = id;
             FechaEntrega = fechaEntrega;
             FechaRecogida = fechaRecogida;
             PrecioTotal = precioTotal;
             Name = name;
             Surname = surname;
             RepararItem = repararItem;
+            TiposMetodoPago = tiposMetodoPago;
         }
-
-        public int Id { get; set; }
-
-        [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FechaReparacion { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -40,9 +34,8 @@
         [Display(Name = "Apellidos")]
         public string Surname { get; set; }
 
-        IList<RepararItemDTO> RepararItem { get; set; }
+        public TiposMetodoPago TiposMetodoPago { get; set; }
 
-
-
+        public IList<RepararItemDTO> RepararItem { get; set; }
     }
 }

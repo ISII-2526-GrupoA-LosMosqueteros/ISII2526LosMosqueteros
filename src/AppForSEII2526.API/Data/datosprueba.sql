@@ -1,0 +1,23 @@
+﻿SET IDENTITY_INSERT [dbo].[Fabricantes] ON
+INSERT INTO [dbo].[Fabricantes] ([Id], [Nombre]) VALUES (1, N'Phillips')
+INSERT INTO [dbo].[Fabricantes] ([Id], [Nombre]) VALUES (2, N'Wurt')
+SET IDENTITY_INSERT [dbo].[Fabricantes] OFF
+
+SET IDENTITY_INSERT [dbo].[Herramientas] ON
+INSERT INTO [dbo].[Herramientas] ([Id], [Nombre], [Material], [Precio], [TiempoReparacion], [FabricanteId]) VALUES (1, N'Destornillador', N'Acero', CAST(12.50 AS Decimal(10, 2)), 1, 2)
+INSERT INTO [dbo].[Herramientas] ([Id], [Nombre], [Material], [Precio], [TiempoReparacion], [FabricanteId]) VALUES (2, N'Llave Inglesa', N'Acero', CAST(10.30 AS Decimal(10, 2)), 2, 1)
+SET IDENTITY_INSERT [dbo].[Herramientas] OFF
+
+INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [Phone], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'1', N'Carlos', N'Gomez', 612345678, N'carlos.gomez', N'CARLOS.GOMEZ', N'carlos.gomez@example.com', N'CARLOS.GOMEZ@EXAMPLE.COM', 1, NULL, N'68E4382A-5EAD-4EE4-AE12-7195321871E5', N'7CCE708A-9B3A-4426-806F-EBB87FCB1CDE', N'612345678', 1, 0, NULL, 0, 0)
+INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [Phone], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'2', N'Lucia', N'Martinez', 623456789, N'lucia.martinez', N'LUCIA.MARTINEZ', N'lucia.martinez@example.com', N'LUCIA.MARTINEZ@EXAMPLE.COM', 1, NULL, N'CC99064E-F27D-49B1-9D89-EC50B0E15AB5', N'C0DAC331-04F9-4C4D-8FEF-1807CFBB3237', N'623456789', 1, 0, NULL, 0, 0)
+INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [Phone], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'3', N'Andres', N'Ruiz', 634567890, N'andres.ruiz', N'ANDRES.RUIZ', N'andres.ruiz@example.com', N'ANDRES.RUIZ@EXAMPLE.COM', 1, NULL, N'619AD214-172D-43D8-97A5-3652A8F95AE2', N'42F93B85-47B2-473E-9219-35B7DA93E779', N'634567890', 1, 0, NULL, 0, 0)
+INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [Phone], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'4', N'Maria', N'Fernandez', 645678901, N'maria.fernandez', N'MARIA.FERNANDEZ', N'maria.fernandez@example.com', N'MARIA.FERNANDEZ@EXAMPLE.COM', 1, NULL, N'C07A688A-7B8C-44BC-BADA-E843818441E3', N'463E2FC0-5363-400D-BDEF-33140BEB0010', N'645678901', 1, 0, NULL, 0, 0)
+INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [Phone], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'5', N'Javier', N'Lopez', 656789012, N'javier.lopez', N'JAVIER.LOPEZ', N'javier.lopez@example.com', N'JAVIER.LOPEZ@EXAMPLE.COM', 1, NULL, N'7286B66E-DF84-4C88-B617-CA366B16D997', N'6C2A4851-ACBF-47A3-8B65-3FB7609596C4', N'656789012', 1, 0, NULL, 0, 0)
+
+SET IDENTITY_INSERT [dbo].[Reparaciones] ON
+INSERT INTO [dbo].[Reparaciones] ([Id],[FechaReparacion], [FechaEntrega], [FechaRecogida], [PrecioTotal], [TiposMetodoPago], [ApplicationUserId]) VALUES (1,N'2025-9-10 00:00:00', N'2025-9-11 00:00:00', N'2025-9-12 00:00:00', 10.25, 1, 5)
+INSERT INTO [dbo].[Reparaciones] ([Id],[FechaReparacion], [FechaEntrega], [FechaRecogida], [PrecioTotal], [TiposMetodoPago], [ApplicationUserId]) VALUES (2,N'2025-10-20 00:00:00', N'2025-10-21 00:00:00', N'2025-10-22 00:00:00', 10.25, 1, 5)
+SET IDENTITY_INSERT [dbo].[Reparaciones] OFF
+
+INSERT INTO [dbo].[ReparacionItems] ([ReparacionId], [HerramientaId], [Precio], [Cantidad], [Descripcion]) VALUES (1, 1, 10.20, 2, N'Muy Bonito')
+INSERT INTO [dbo].[ReparacionItems] ([ReparacionId], [HerramientaId], [Precio], [Cantidad], [Descripcion]) VALUES (2, 2, 15.20, 1, N'Muy Feo')

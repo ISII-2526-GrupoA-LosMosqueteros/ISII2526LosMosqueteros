@@ -2,6 +2,9 @@
 {
     public class Reparacion
     {
+        public Reparacion()
+        {
+        }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

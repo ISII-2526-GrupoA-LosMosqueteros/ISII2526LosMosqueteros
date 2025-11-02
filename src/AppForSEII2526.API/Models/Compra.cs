@@ -2,6 +2,10 @@
 {
     public class Compra
     {
+    
+        public Compra()
+        {
+        }
         public string DireccionEnvio { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
