@@ -5,6 +5,15 @@
         public Reparacion()
         {
         }
+        public Reparacion(DateTime fechaEntrega, DateTime fechaRecogida, decimal precioTotal, TiposMetodoPago tiposMetodoPago, ApplicationUser applicationUser, IList<ReparacionItem> reparacionItems)
+        {
+            FechaEntrega = fechaEntrega;
+            FechaRecogida = fechaRecogida;
+            PrecioTotal = precioTotal;
+            TiposMetodoPago = tiposMetodoPago;
+            ApplicationUser = applicationUser;
+            ReparacionItems = reparacionItems;
+        }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

@@ -417,3 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 /src/AppForSEII2526.API/Data/datosprueba.sql
+/src/AppForSEII2526.API/Data/dbo.Fabricantes.data.sql
