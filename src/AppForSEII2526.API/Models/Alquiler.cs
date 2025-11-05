@@ -4,6 +4,10 @@ namespace AppForSEII2526.API.Models
 {
     public class Alquiler
     {
+        public Alquiler()
+        {
+
+        }
 
         public String DireccionEnvio { get; set; }
 

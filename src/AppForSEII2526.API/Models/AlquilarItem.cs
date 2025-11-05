@@ -3,7 +3,9 @@
     [PrimaryKey(nameof(AlquilerId), nameof(HerramientaId))]
     public class AlquilarItem
     {
+        public AlquilarItem() {
 
+        }
         [Display(Name = "Cantidad para Alquilar")]
         [Range(0, int.MaxValue, ErrorMessage = "La minima cantidad para alquilar es 1")]
         public int Cantidad { get; set; }
