@@ -2,16 +2,15 @@
 {
     public class Herramienta
     {
-        public Herramienta()
-        {
-        }
+        public Herramienta() { }
+
         public Herramienta(string nombre, string material, decimal precio, int tiempoReparacion, Fabricante fabricante)
         {
-            Nombre = nombre;
-            Material = material;
+            Nombre = nombre;   
+            Material = material;    
             Precio = precio;
-            Fabricante = fabricante;
             TiempoReparacion = tiempoReparacion;
+            Fabricante = fabricante;
         }
 
         public int Id { get; set; }
