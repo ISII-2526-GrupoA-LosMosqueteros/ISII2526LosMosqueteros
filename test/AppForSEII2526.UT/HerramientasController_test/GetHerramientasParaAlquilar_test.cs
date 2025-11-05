@@ -27,29 +27,9 @@ namespace AppForSEII2526.UT.HerramientasController_test
                 new Herramienta ("Taladro", "Plástico y Metal", 56.22m, 14, fabricantes[2])
             };
 
-            /*
-                        var usuario = new ApplicationUser();
-
-                        var alquilar = new Alquiler(
-                            "Calle Falsa 123",
-                            DateTime.Now,
-                            herramientas.Sum(h => h.Precio),
-                            new List<AlquilarItem>(),
-                            TiposMetodoPago.TarjetaCredito,
-                            usuario);
-
-                        var AlquilarItems = new List<AlquilarItem>
-                        {
-                            new AlquilarItemItem(1, "Martillo de alta calidad", herramientas[0].Precio, herramientas[0].Id, alquilar.Id, herramientas[0], alquilar),
-                            new AlquilarItem(2, "Destornillador resistente", herramientas[1].Precio * 2, herramientas[1].Id, alquilar.Id, herramientas[1], alquilar),
-                            new AlquilarItem(1, "Taladro potente", herramientas[2].Precio, herramientas[2].Id, alquilar.Id, herramientas[2], alquilar)
-                        };
-            */
-            //            _context.Add(usuario);
+      
             _context.AddRange(fabricantes);
             _context.AddRange(herramientas);
-            //            _context.Add(alquilar);
-            //            _context.AddRange(alquilarItems);
             _context.SaveChanges();
 
         }
