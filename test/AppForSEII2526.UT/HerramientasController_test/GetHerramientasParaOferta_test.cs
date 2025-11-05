@@ -1,5 +1,4 @@
-﻿using AppForSEII2526;
-using AppForSEII2526.API.Controllers;
+﻿using AppForSEII2526.API.Controllers;
 using AppForSEII2526.API.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 
 
-namespace AppForSEII2526.UT.HerramientasControler_test
+namespace AppForSEII2526.UT.HerramientasController_test
 {
     public class GetHerramientasParaOferta_test : AppForSEII25264SqliteUT
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AppForSEII2526.API.Controllers;
 using AppForSEII2526.API.DTOs;
 
-namespace AppForSEII2526.UT.HerramientrasController_test
+namespace AppForSEII2526.UT.HerramientasController_test
 {
     public class GetHerramientasParaReparar_test : AppForSEII25264SqliteUT
     {
