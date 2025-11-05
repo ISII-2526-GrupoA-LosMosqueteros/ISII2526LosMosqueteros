@@ -4,9 +4,8 @@
     public class Fabricante
     {
         public Fabricante()
-        {
+        { 
         }
-
         public Fabricante(string nombre)
         {
             Nombre = nombre;

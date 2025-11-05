@@ -85,8 +85,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(herramienta =>
                 (herramienta.Nombre.Contains(herramientaNombre) || herramientaNombre == null)
                 && (herramienta.Material.Contains(herramientaMaterial) || herramientaMaterial == null))
-                .Select(h => new HerramientaParaAlquilarDTO(h.Id, h.Nombre,
-                h.Material, h.Fabricante.Nombre, h.Precio))
+                .Select(h => new HerramientaParaAlquilarDTO(h.Id, h.Nombre, h.Material, h.Fabricante.Nombre, h.Precio))
                 .ToListAsync();
             return Ok(herramientas);
 
