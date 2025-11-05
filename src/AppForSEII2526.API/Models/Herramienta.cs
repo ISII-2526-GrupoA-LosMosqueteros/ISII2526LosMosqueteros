@@ -2,6 +2,19 @@
 {
     public class Herramienta
     {
+        public Herramienta()
+        {
+        }
+
+        public Herramienta(string nombre, string material, decimal precio, int tiempoReparacion, Fabricante fabricante)
+        {
+            Nombre = nombre;
+            Material = material;
+            Precio = precio;
+            TiempoReparacion = tiempoReparacion;
+            Fabricante = fabricante;
+        }
+
         public int Id { get; set; }
 
         [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]

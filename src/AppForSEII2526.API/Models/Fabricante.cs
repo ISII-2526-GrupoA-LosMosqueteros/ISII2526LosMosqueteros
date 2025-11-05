@@ -3,6 +3,15 @@
     [Index(nameof(Nombre), IsUnique = true)]
     public class Fabricante
     {
+        public Fabricante()
+        {
+        }
+
+        public Fabricante(string nombre)
+        {
+            Nombre = nombre;
+        }
+
         public int Id { get; set; }
 
         [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
