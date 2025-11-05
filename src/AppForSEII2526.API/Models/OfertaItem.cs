@@ -3,6 +3,10 @@
     [PrimaryKey(nameof(OfertaId), nameof(HerramientaId))]
     public class OfertaItem
     {
+        public OfertaItem()
+        {
+        }
+
         public int HerramientaId { get; set; }
         public int OfertaId { get; set; }
 

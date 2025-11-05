@@ -18,6 +18,10 @@
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FechaReparacion { get; set; }
+
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaEntrega { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]

@@ -3,7 +3,9 @@
     [PrimaryKey(nameof(AlquilerId), nameof(HerramientaId))]
     public class AlquilarItem
     {
-        public AlquilarItem() {
+        public AlquilarItem()
+        {
+        }
 
         }
         [Display(Name = "Cantidad para Alquilar")]

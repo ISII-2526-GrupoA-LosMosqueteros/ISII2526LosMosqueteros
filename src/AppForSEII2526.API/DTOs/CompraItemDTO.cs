@@ -2,9 +2,8 @@
 {
     public class CompraItemDTO
     {
-        public CompraItemDTO(int id, string nombre, string material, int cantidad, string descripcion, decimal precio)
+        public CompraItemDTO(string nombre, string material, int cantidad, string descripcion, decimal precio)
         {
-            Id = id;
             Nombre = nombre;
             Material = material;
             Cantidad = cantidad;
@@ -12,7 +11,7 @@
             Precio = precio;
         }
 
-        public int Id { get; set; }
+      
         [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
         public string Nombre { get; set; }
 
