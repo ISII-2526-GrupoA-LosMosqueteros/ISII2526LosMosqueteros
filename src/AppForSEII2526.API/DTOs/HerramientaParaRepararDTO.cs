@@ -1,4 +1,6 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿using Humanizer.Localisation;
+
+namespace AppForSEII2526.API.DTOs
 {
     public class HerramientaParaRepararDTO
     {
@@ -27,6 +29,22 @@
             Precio = precio;
             TiempoReparacion = tiempoReparacion;
             Fabricante = fabricante;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is HerramientaParaRepararDTO dTO &&
+                   Id == dTO.Id &&
+                   Nombre == dTO.Nombre &&
+                   Fabricante == dTO.Fabricante &&
+                   TiempoReparacion == dTO.TiempoReparacion &&
+                   Precio == dTO.Precio &&
+                   Material == dTO.Material;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Nombre, Material, Precio, TiempoReparacion, Fabricante);
         }
 
 

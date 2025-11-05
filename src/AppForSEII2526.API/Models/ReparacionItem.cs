@@ -3,6 +3,9 @@
     [PrimaryKey(nameof(ReparacionId), nameof(HerramientaId))]
     public class ReparacionItem
     {
+        public ReparacionItem()
+        { 
+        }
         public int ReparacionId { get; set; }
         public int HerramientaId { get; set; }
 
