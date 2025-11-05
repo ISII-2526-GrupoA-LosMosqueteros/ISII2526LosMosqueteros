@@ -4,6 +4,9 @@
     [PrimaryKey(nameof(CompraId), nameof(HerramientaId))]
     public class CompraItem
     {
+        public CompraItem()
+        {
+        }
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad minima es 1")]
         public int Cantidad { get; set; }
 
