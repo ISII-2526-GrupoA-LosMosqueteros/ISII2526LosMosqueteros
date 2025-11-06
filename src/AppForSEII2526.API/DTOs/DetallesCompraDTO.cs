@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+namespace AppForSEII2526.API.DTOs
 {
     public class DetallesCompraDTO
     {
@@ -25,5 +26,14 @@
         public DateTime FechaCompra { get; set; }
         public IList<CompraItemDTO> CompraItem { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is DetallesCompraDTO dTO &&
+                   Name == dTO.Name &&
+                   Surname == dTO.Surname &&
+                   DireccionEnvio == dTO.DireccionEnvio &&
+                   PrecioTotal == dTO.PrecioTotal &&
+                   CompraItem.SequenceEqual(dTO.CompraItem);
+        }
     }
 }

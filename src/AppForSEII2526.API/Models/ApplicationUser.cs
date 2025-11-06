@@ -8,6 +8,14 @@ public class ApplicationUser : IdentityUser {
     {
     }
 
+    public ApplicationUser(string name, string surname, string? email, string? phone)
+    {
+        Name = name;
+        Surname = surname;
+        Email = email;
+        Phone = phone;
+    }
+
     [Display(Name = "Nombre")]
     public string Name { get; set; }
 

@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+namespace AppForSEII2526.API.DTOs
 {
     public class CreacionCompraDTO
     {
@@ -28,5 +29,16 @@
         public string? Email { get; set; }
         public IList<CompraItemDTO> CompraItems { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is CreacionCompraDTO dTO &&
+                   Name == dTO.Name &&
+                   Surname == dTO.Surname &&
+                   DireccionEnvio == dTO.DireccionEnvio &&
+                   TipoMetodoPago == dTO.TipoMetodoPago &&
+                   Phone == dTO.Phone &&
+                   Email == dTO.Email &&
+                   EqualityComparer<IList<CompraItemDTO>>.Default.Equals(CompraItems, dTO.CompraItems);
+        }
     }
 }

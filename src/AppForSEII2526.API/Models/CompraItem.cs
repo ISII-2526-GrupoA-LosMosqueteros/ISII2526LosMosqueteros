@@ -7,6 +7,18 @@
         public CompraItem()
         {
         }
+
+        public CompraItem(int cantidad, string descripcion, Herramienta herramienta, Compra compra)
+        {
+            Cantidad = cantidad;
+            Descripcion = descripcion;
+            Precio = herramienta.Precio;
+            Herramienta = herramienta;
+            Compra = compra;
+            HerramientaId= herramienta.Id;
+            CompraId= compra.Id;
+        }
+
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad minima es 1")]
         public int Cantidad { get; set; }
 
