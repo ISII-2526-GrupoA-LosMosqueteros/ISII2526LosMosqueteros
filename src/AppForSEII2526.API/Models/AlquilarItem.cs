@@ -6,6 +6,17 @@
         public AlquilarItem()
         {
         }
+
+        public AlquilarItem(int cantidad, int alquilerId, int herramientaId, decimal precio, Herramienta herramienta, Alquiler alquiler)
+        {
+            Cantidad = cantidad;
+            AlquilerId = alquilerId;
+            HerramientaId = herramientaId;
+            Precio = precio;
+            Herramienta = herramienta;
+            Alquiler = alquiler;
+        }
+
         [Display(Name = "Cantidad para Alquilar")]
         [Range(0, int.MaxValue, ErrorMessage = "La minima cantidad para alquilar es 1")]
         public int Cantidad { get; set; }

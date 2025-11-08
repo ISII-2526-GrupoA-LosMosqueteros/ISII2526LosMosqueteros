@@ -117,7 +117,7 @@ namespace AppForSEII2526.API.Controllers
                     {
                         HerramientaId = herramienta.Id,
                         Cantidad = item.Cantidad,
-                        Precio = (herramienta.Precio/5 * item.Cantidad)*numeroDias,
+                        Precio = (herramienta.Precio * item.Cantidad)*numeroDias,
                         Herramienta = herramienta,
                         Alquiler = alquiler
                     });
