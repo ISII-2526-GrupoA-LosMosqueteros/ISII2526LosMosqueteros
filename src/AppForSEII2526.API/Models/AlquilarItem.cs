@@ -7,14 +7,14 @@
         {
         }
 
-        public AlquilarItem(int cantidad, int alquilerId, int herramientaId, decimal precio, Herramienta herramienta, Alquiler alquiler)
+        public AlquilarItem(int cantidad, decimal precio, Herramienta herramienta, Alquiler alquiler)
         {
             Cantidad = cantidad;
-            AlquilerId = alquilerId;
-            HerramientaId = herramientaId;
             Precio = precio;
             Herramienta = herramienta;
             Alquiler = alquiler;
+            AlquilerId = Alquiler.Id;
+            HerramientaId = Herramienta.Id;
         }
 
         [Display(Name = "Cantidad para Alquilar")]

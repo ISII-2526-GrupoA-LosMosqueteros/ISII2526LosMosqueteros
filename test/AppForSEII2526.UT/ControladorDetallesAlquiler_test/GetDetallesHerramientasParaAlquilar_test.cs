@@ -32,7 +32,7 @@ namespace AppForSEII2526.UT.ControladorDetallesAlquiler_test
             var alquiler = new Alquiler("Avda. España s/n, Albacete 02071",
                     DateTime.Today, DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), 3,
                     31.5m, new List<AlquilarItem>(), AppForSEII2526.API.Models.TiposMetodoPago.TarjetaCredito, user);
-                    alquiler.AlquilarItems.Add(new AlquilarItem(2, 1, 1, alquiler.PrecioTotal, herramientas[1], alquiler));
+                    alquiler.AlquilarItems.Add(new AlquilarItem(2, alquiler.PrecioTotal, herramientas[1], alquiler));
 
             _context.ApplicationUsers.Add(user);
             _context.AddRange(fabricantes);
