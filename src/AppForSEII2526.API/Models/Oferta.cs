@@ -6,6 +6,17 @@
         {
         }
 
+        public Oferta(DateTime fechaFinal, DateTime fechaInicio, DateTime fechaOferta, IList<OfertaItem> ofertaItems, TiposDirigdaOferta? tiposDirigdaOferta, TiposMetodoPago tiposMetodoPago, ApplicationUser applicationUser)
+        {
+            FechaFinal = fechaFinal;
+            FechaInicio = fechaInicio;
+            FechaOferta = fechaOferta;
+            OfertaItems = ofertaItems;
+            TiposDirigdaOferta = tiposDirigdaOferta;
+            TiposMetodoPago = tiposMetodoPago;
+            ApplicationUser = applicationUser;
+        }
+
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaFinal { get; set; }
