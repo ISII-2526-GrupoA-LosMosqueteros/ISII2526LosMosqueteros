@@ -3,7 +3,7 @@
     public class CreacionReparacionDTO
     {
         public CreacionReparacionDTO(DateTime fechaEntrega, DateTime fechaRecogida,
-            decimal precioTotal, string name, string surname, IList<RepararItemDTO> repararItem, TiposMetodoPago tiposMetodoPago)
+            decimal precioTotal, string name, string surname, IList<RepararItemDTO> repararItem, TiposMetodoPago tiposMetodoPago, string phone)
         {
             FechaEntrega = fechaEntrega;
             FechaRecogida = fechaRecogida;
@@ -12,6 +12,7 @@
             Surname = surname;
             RepararItem = repararItem;
             TiposMetodoPago = tiposMetodoPago;
+            Phone = phone;
         }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
@@ -33,6 +34,9 @@
 
         [Display(Name = "Apellidos")]
         public string Surname { get; set; }
+
+        [Display(Name = "Telefono")]
+        public string Phone { get; set; }
 
         public TiposMetodoPago TiposMetodoPago { get; set; }
 

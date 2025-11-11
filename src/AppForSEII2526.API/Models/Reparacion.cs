@@ -5,7 +5,8 @@
         public Reparacion()
         {
         }
-        public Reparacion(DateTime fechaEntrega, DateTime fechaRecogida, decimal precioTotal, TiposMetodoPago tiposMetodoPago, ApplicationUser applicationUser, IList<ReparacionItem> reparacionItems)
+        public Reparacion(DateTime fechaEntrega, DateTime fechaRecogida, decimal precioTotal, TiposMetodoPago tiposMetodoPago,
+            ApplicationUser applicationUser, IList<ReparacionItem> reparacionItems)
         {
             FechaEntrega = fechaEntrega;
             FechaRecogida = fechaRecogida;

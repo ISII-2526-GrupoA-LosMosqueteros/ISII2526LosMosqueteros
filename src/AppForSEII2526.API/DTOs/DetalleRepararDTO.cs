@@ -18,10 +18,6 @@
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FechaReparacion { get; set; }
-
-        [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaEntrega { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
@@ -40,9 +36,23 @@
         [Display(Name = "Apellidos")]
         public string Surname { get; set; }
 
-        IList<RepararItemDTO> RepararItem { get; set; }
+        public IList<RepararItemDTO> RepararItem { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is DetalleRepararDTO dTO &&
+                   Name == dTO.Name &&
+                   Surname == dTO.Surname &&
+                   FechaEntrega == dTO.FechaEntrega &&
+                   FechaRecogida == dTO.FechaRecogida &&
+                   PrecioTotal == dTO.PrecioTotal &&
+                   RepararItem.SequenceEqual(dTO.RepararItem);
+        }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, Surname, FechaEntrega, FechaRecogida, RepararItem);
+        }
 
     }
 }
