@@ -1,4 +1,4 @@
-﻿namespace AppForSEII2526.UT{
+﻿namespace AppForSEII2526{
     public class AppForSEII25264SqliteUT
     {
         protected readonly DbConnection _connection;
