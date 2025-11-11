@@ -33,5 +33,21 @@ namespace AppForSEII2526.API.DTOs
         [Range(0.05, float.MaxValue, ErrorMessage = "El precio minimo es 0.05")]
         [Precision(10, 2)]
         public decimal PrecioFinal { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is OfertaItemDTO dTO &&
+                   Id == dTO.Id &&
+                   Nombre == dTO.Nombre &&
+                   Material == dTO.Material &&
+                   Fabricante == dTO.Fabricante &&
+                   Precio == dTO.Precio &&
+                   PrecioFinal == dTO.PrecioFinal;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Nombre, Material, Fabricante, Precio, PrecioFinal);
+        }
     }
 }

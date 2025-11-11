@@ -4,7 +4,8 @@ namespace AppForSEII2526.API.DTOs
 {
     public class DetalleOfertaDTO
     {
-        public DetalleOfertaDTO(DateTime fechaInicio, DateTime fechaFinal, TiposMetodoPago tiposMetodoPago, TiposDirigdaOferta? tiposDirigdaOferta, IList<OfertaItemDTO> ofertaItem, DateTime fechaOferta, int id)
+        public DetalleOfertaDTO(DateTime fechaInicio, DateTime fechaFinal, TiposMetodoPago tiposMetodoPago,
+            TiposDirigdaOferta? tiposDirigdaOferta, IList<OfertaItemDTO> ofertaItem, DateTime fechaOferta, int id)
         {
             FechaInicio = fechaInicio;
             FechaFinal = fechaFinal;
@@ -34,5 +35,19 @@ namespace AppForSEII2526.API.DTOs
         public TiposDirigdaOferta? TiposDirigdaOferta { get; set; }
 
         public IList<OfertaItemDTO> OfertaItem { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is DetalleOfertaDTO dTO &&
+                   Id == dTO.Id &&
+                   TiposMetodoPago == dTO.TiposMetodoPago &&
+                   TiposDirigdaOferta == dTO.TiposDirigdaOferta &&
+                   OfertaItem.SequenceEqual(dTO.OfertaItem);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, FechaInicio, FechaFinal, FechaOferta, TiposMetodoPago, TiposDirigdaOferta, OfertaItem);
+        }
     }
 }
