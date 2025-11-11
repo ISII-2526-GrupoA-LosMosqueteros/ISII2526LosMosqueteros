@@ -71,9 +71,9 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> CrearReparacion(CreacionReparacionDTO creacionReparacion)
         {
             // Comprobamos validaciones
-            if(creacionReparacion.FechaEntrega <= DateTime.Today)
+            if(creacionReparacion.FechaEntrega < DateTime.Today)
             {
-                ModelState.AddModelError("FechaEntrega", "La fecha de recogida no puede ser anterior a mañana.");
+                ModelState.AddModelError("FechaEntrega", "La fecha de recogida no puede ser anterior a hoy.");
                 return ValidationProblem(ModelState);
             }
 
@@ -131,7 +131,7 @@ namespace AppForSEII2526.API.Controllers
                     }
                     reparacion.ReparacionItems.Add(new ReparacionItem
                     {
-                        Precio = herr.Precio * 0.3m * item.Cantidad,
+                        Precio = herr.Precio * item.Cantidad,
                         Descripcion = descripcion,
                         Cantidad = item.Cantidad,
                         Herramienta = herr,

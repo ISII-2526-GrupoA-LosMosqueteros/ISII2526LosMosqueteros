@@ -28,6 +28,14 @@
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad minima es 1")]
         public int Cantidad { get; set; }
 
-
+        public override bool Equals(object? obj)
+        {
+            return obj is RepararItemDTO dTO &&
+                   Id == dTO.Id &&
+                   Nombre == dTO.Nombre &&
+                   Precio == dTO.Precio &&
+                   Descripcion == dTO.Descripcion &&
+                   Cantidad == dTO.Cantidad;
+        }
     }
 }
