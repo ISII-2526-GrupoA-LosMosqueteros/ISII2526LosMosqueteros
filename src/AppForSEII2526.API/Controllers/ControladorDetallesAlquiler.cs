@@ -117,7 +117,7 @@ namespace AppForSEII2526.API.Controllers
             };
 
             alquiler.PrecioTotal = 0;
-            var numeroDias = (decimal) (creacionAlquiler.FechaFin - creacionAlquiler.FechaInicio).TotalDays;
+            var numeroDias = (decimal) (alquiler.FechaFin - alquiler.FechaInicio).TotalDays + 1;
 
             foreach (var item in creacionAlquiler.AlquilerItems)
             {
@@ -132,12 +132,12 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
-                    alquiler.PrecioTotal += (herramienta.Precio * item.Cantidad)*numeroDias;
+                    
                     alquiler.AlquilarItems.Add(new AlquilarItem
                     {
                         HerramientaId = herramienta.Id,
                         Cantidad = item.Cantidad,
-                        Precio = item.Precio,
+                        Precio = (herramienta.Precio * item.Cantidad) * numeroDias,
                         Herramienta = herramienta,
                         Alquiler = alquiler
                     });

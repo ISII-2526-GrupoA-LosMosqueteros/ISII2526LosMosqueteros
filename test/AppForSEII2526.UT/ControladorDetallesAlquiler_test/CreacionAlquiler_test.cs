@@ -144,13 +144,15 @@ namespace AppForSEII2526.UT.ControladorDetallesAlquiler_test
             var alquilerDTO = new CreacionAlquilerDTO(_userName, _customerSurname,
                 _deliveryAddress, TiposMetodoPago.TarjetaCredito,
                 fechaInicio, fechaFin, new List<AlquilarItemDTO>()
-                { new AlquilarItemDTO(2, _herramienta1Nombre, "Acero", 31.5m,2) });
+                { new AlquilarItemDTO(2, _herramienta1Nombre, "Acero", 25.5m,2),
+                  new AlquilarItemDTO(3, _herramienta2Nombre, "Acero", 15.75m, 3)}); // Total: 204 + 189 = 393
 
             var expectedalquilerDetalleDTO = new DetalleAlquilarDTO(2, _userName, _customerSurname,
-                        "Avda. España s/n, Albacete 02071", DateTime.Today, 31.5m,
+                        "Avda. España s/n, Albacete 02071", DateTime.Today, 393m,
                         DateTime.Today.AddDays(2), DateTime.Today.AddDays(5),
                         new List<AlquilarItemDTO>());
-            expectedalquilerDetalleDTO.AlquilarItems.Add(new AlquilarItemDTO(1, _herramienta1Nombre, "Acero", 31.5m, 2));
+            expectedalquilerDetalleDTO.AlquilarItems.Add(new AlquilarItemDTO(1, _herramienta1Nombre, "Acero", 204.0m, 2));
+            expectedalquilerDetalleDTO.AlquilarItems.Add(new AlquilarItemDTO(2, _herramienta2Nombre, "Acero", 189.0m, 3));
 
 
             // Act
