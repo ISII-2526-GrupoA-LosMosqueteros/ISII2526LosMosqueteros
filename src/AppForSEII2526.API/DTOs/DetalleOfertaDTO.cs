@@ -47,7 +47,7 @@ namespace AppForSEII2526.API.DTOs
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, FechaInicio, FechaFinal, FechaOferta, TiposMetodoPago, TiposDirigdaOferta, OfertaItem);
+            return HashCode.Combine(Id, TiposMetodoPago, TiposDirigdaOferta, OfertaItem);
         }
     }
 }
