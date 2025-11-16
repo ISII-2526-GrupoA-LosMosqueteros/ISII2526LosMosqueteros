@@ -58,19 +58,19 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CreacionAlquiler(CreacionAlquilerDTO creacionAlquiler)
         {
-            if (creacionAlquiler.FechaInicio <= DateTime.Today)
+            if (creacionAlquiler.FechaInicio < DateTime.Today)
             {
-                ModelState.AddModelError("Fecha Inicio", "¡Error! Tu alquiler debe empezar después de hoy");
+                ModelState.AddModelError("Fecha Inicio", "¡Error! Tu alquiler no debe empezar antes que hoy");
             }
 
-            if (creacionAlquiler.FechaInicio >= creacionAlquiler.FechaFin)
+            if (creacionAlquiler.FechaInicio > creacionAlquiler.FechaFin)
             {
-                ModelState.AddModelError("FechaInicio&FechaFin", "¡Error! Tu alquiler debe acaber después de cuando empezó");
+                ModelState.AddModelError("FechaInicio&FechaFin", "¡Error! Tu alquiler debe acabar después de cuando empezó");
             }
             
             if (creacionAlquiler.AlquilerItems.Count == 0)
             {
-                ModelState.AddModelError("AlquilarItems", "¡Error!, Tienes que incluir al menos una herramienta para alquilar");
+                ModelState.AddModelError("AlquilarItems", "¡Error! Tienes que incluir al menos una herramienta para alquilar");
             }
 
             var usuario = _context.ApplicationUsers.FirstOrDefault(au => au.Name == creacionAlquiler.Name);
@@ -78,6 +78,23 @@ namespace AppForSEII2526.API.Controllers
             {
                 ModelState.AddModelError("AplicacionAlquilerUsuario", "¡Error! Usuario no registrado");
             }
+
+            if (creacionAlquiler.Name == null)
+            {
+                ModelState.AddModelError("Nombre", "¡Error! El nombre es un campo obligatorio");
+            }
+
+            if (creacionAlquiler.Surname == null)
+            {
+                ModelState.AddModelError("Apellidos", "¡Error! Los apellidos son un campo obligatorio");
+            }
+
+            if (creacionAlquiler.DireccionEnvio == null)
+            {
+                ModelState.AddModelError("DireccionEnvio", "¡Error! La direccion de envio es un campo obligatorio");
+            }
+
+          
 
             if (ModelState.ErrorCount > 0)
             {
@@ -93,12 +110,14 @@ namespace AppForSEII2526.API.Controllers
                 ApplicationUser = usuario,
                 DireccionEnvio = creacionAlquiler.DireccionEnvio,
                 TiposMetodoPago = creacionAlquiler.MetodoPago,
-                FechaAlquiler = DateTime.Now,
+                FechaAlquiler = DateTime.Today,
+                FechaFin = creacionAlquiler.FechaFin,
+                FechaInicio = creacionAlquiler.FechaInicio,
                 AlquilarItems = new List<AlquilarItem>()
             };
 
             alquiler.PrecioTotal = 0;
-            var numeroDias = (decimal) (creacionAlquiler.FechaFin - creacionAlquiler.FechaInicio).TotalDays;
+            var numeroDias = (decimal) (alquiler.FechaFin - alquiler.FechaInicio).TotalDays + 1;
 
             foreach (var item in creacionAlquiler.AlquilerItems)
             {
@@ -113,11 +132,12 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
+                    
                     alquiler.AlquilarItems.Add(new AlquilarItem
                     {
                         HerramientaId = herramienta.Id,
                         Cantidad = item.Cantidad,
-                        Precio = (herramienta.Precio * item.Cantidad)*numeroDias,
+                        Precio = (herramienta.Precio * item.Cantidad) * numeroDias,
                         Herramienta = herramienta,
                         Alquiler = alquiler
                     });
@@ -129,7 +149,7 @@ namespace AppForSEII2526.API.Controllers
             {
                 return BadRequest(new ValidationProblemDetails(ModelState));
             }
-
+            
             _context.Alquileres.Add(alquiler);
             try
             {
