@@ -11,12 +11,12 @@ on:
 
 jobs:
   build:
-
+  
     env:
-      API: .src/AppForSEII2526.API/AppForSEII2526.API.csproj
-      WEB: .src/AppForSEII2526.API/AppForSEII2526.Web.csproj
-      UT: .src/AppForSEII2526.API/AppForSEII2526.UT.csproj
-      UIT: .src/AppForSEII2526.API/AppForSEII2526.UIT.csproj
+      API: ./src/AppForSEII2526.API/AppForSEII2526.API.csproj
+      WEB: ./src/AppForSEII2526.API/AppForSEII2526.Web.csproj
+      UT: ./test/AppForSEII2526.API/AppForSEII2526.UT.csproj
+      UIT: ./test/AppForSEII2526.API/AppForSEII2526.UIT.csproj
 
     steps:
       - name: Check out repository code
