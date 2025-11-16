@@ -1,13 +1,12 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+namespace AppForSEII2526.API.DTOs
 {
     public class CreacionReparacionDTO
     {
-        public CreacionReparacionDTO(DateTime fechaEntrega, DateTime fechaRecogida,
-            decimal precioTotal, string name, string surname, IList<RepararItemDTO> repararItem, TiposMetodoPago tiposMetodoPago, string phone)
+        public CreacionReparacionDTO(DateTime fechaEntrega,
+            string name, string surname, IList<RepararItemDTO> repararItem, TiposMetodoPago tiposMetodoPago, string phone)
         {
             FechaEntrega = fechaEntrega;
-            FechaRecogida = fechaRecogida;
-            PrecioTotal = precioTotal;
             Name = name;
             Surname = surname;
             RepararItem = repararItem;
@@ -41,5 +40,18 @@
         public TiposMetodoPago TiposMetodoPago { get; set; }
 
         public IList<RepararItemDTO> RepararItem { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CreacionReparacionDTO dTO &&
+                   FechaEntrega == dTO.FechaEntrega &&
+                   FechaRecogida == dTO.FechaRecogida &&
+                   PrecioTotal == dTO.PrecioTotal &&
+                   Name == dTO.Name &&
+                   Surname == dTO.Surname &&
+                   Phone == dTO.Phone &&
+                   TiposMetodoPago == dTO.TiposMetodoPago &&
+                   RepararItem.SequenceEqual(dTO.RepararItem);
+        }
     }
 }

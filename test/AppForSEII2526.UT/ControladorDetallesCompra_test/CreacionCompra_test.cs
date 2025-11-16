@@ -85,9 +85,9 @@ namespace AppForSEII2526.UT.ControladorDetallesCompra_test
         public async Task CreacionCompra_Test_BadRequest(CreacionCompraDTO creaciondecompras, string erroresperado)
         {
             //Arrange (Se define todas las variables que se necesitan)
-            var controller = new ControladorDetallesCompra(_context, null);
             var mock = new Mock<ILogger<ControladorDetallesCompra>>();
             ILogger<ControladorDetallesCompra> logger = mock.Object;
+            var controller = new ControladorDetallesCompra(_context, logger);
 
             //Act (Se ejecuta la acción a testear)
 

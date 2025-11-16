@@ -41,6 +41,7 @@
         public override bool Equals(object? obj)
         {
             return obj is DetalleRepararDTO dTO &&
+                   Id == dTO.Id &&
                    Name == dTO.Name &&
                    Surname == dTO.Surname &&
                    FechaEntrega == dTO.FechaEntrega &&
