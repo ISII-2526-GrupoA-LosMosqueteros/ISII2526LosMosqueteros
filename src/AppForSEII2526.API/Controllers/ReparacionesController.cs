@@ -73,17 +73,28 @@ namespace AppForSEII2526.API.Controllers
             // Comprobamos validaciones
             if(creacionReparacion.FechaEntrega < DateTime.Today)
             {
-                ModelState.AddModelError("FechaEntrega", "La fecha de recogida no puede ser anterior a hoy.");
-                return ValidationProblem(ModelState);
+                ModelState.AddModelError("FechaEntrega", "La fecha de entrega no puede ser anterior a hoy.");
             }
 
             //preguntar que es un reparacionItem
-            if (creacionReparacion.RepararItem.Count == 0)
+            if (creacionReparacion.RepararItem.Count == 0 || creacionReparacion.RepararItem == null)
             {
                 ModelState.AddModelError("RepararItem", "La reparacion debe contener al menos un item a reparar.");
             }
 
-            var usuario = _context.ApplicationUsers.FirstOrDefault(au => au.Name == creacionReparacion.Name);
+            if (string.IsNullOrEmpty(creacionReparacion.Name))
+            {
+                ModelState.AddModelError("Nombre", "El nombre no puede estar vacio");
+            }
+
+            if (string.IsNullOrEmpty(creacionReparacion.Surname))
+            {
+                ModelState.AddModelError("Apellido", "El apellido no puede estar vacio");
+            }
+
+
+
+            var usuario = _context.ApplicationUsers.FirstOrDefault(au => au.Name == creacionReparacion.Name && au.Surname == creacionReparacion.Surname);
             if (usuario == null)
                 ModelState.AddModelError("ApplicationUsers", "Error! El usuario no está registrado");
 
@@ -112,6 +123,11 @@ namespace AppForSEII2526.API.Controllers
 
             foreach (var item in creacionReparacion.RepararItem)
             {
+                if(item.Cantidad <= 0)
+                {
+                    ModelState.AddModelError("Cantidad", "La cantidad debe ser mayor de 0");
+                }
+
                 var herr = herramientas.FirstOrDefault(h => h.Nombre == item.Nombre);
                 if(herr == null)
                 {
@@ -181,13 +197,6 @@ namespace AppForSEII2526.API.Controllers
                 );
 
             return CreatedAtAction("CrearReparacion", new { id = reparacion.Id }, detalleReparacion);
-            
-
-
-
-
-
-
 
         }
     }
