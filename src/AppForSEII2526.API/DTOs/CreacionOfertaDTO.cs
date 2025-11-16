@@ -1,20 +1,18 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+using AppForSEII2526.API.Models;
+
+namespace AppForSEII2526.API.DTOs
 {
     public class CreacionOfertaDTO
     {
-        public CreacionOfertaDTO(int porcentaje, DateTime fechaFinal, DateTime fechaInicio, TiposMetodoPago tiposMetodoPago, TiposDirigdaOferta tiposDirigdaOferta, IList<OfertaItemDTO> ofertaItem)
+        public CreacionOfertaDTO(DateTime fechaFinal, DateTime fechaInicio, TiposMetodoPago tiposMetodoPago, TiposDirigdaOferta tiposDirigdaOferta, IList<OfertaItemDTO> ofertaItem)
         {
-            Porcentaje = porcentaje;
             FechaFinal = fechaFinal;
             FechaInicio = fechaInicio;
             TiposMetodoPago = tiposMetodoPago;
             TiposDirigdaOferta = tiposDirigdaOferta;
             OfertaItem = ofertaItem;
         }
-
-        [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
-        [Range(0, 100, ErrorMessage = "El porcentaje debe estar entre 0 y 100")]
-        public int Porcentaje { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -30,5 +28,18 @@
 
         public IList<OfertaItemDTO> OfertaItem { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is CreacionOfertaDTO dTO &&
+                   
+                   TiposMetodoPago == dTO.TiposMetodoPago &&
+                   TiposDirigdaOferta == dTO.TiposDirigdaOferta &&
+                   OfertaItem.SequenceEqual(dTO.OfertaItem);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(TiposMetodoPago, TiposDirigdaOferta, OfertaItem);
+        }
     }
 }
