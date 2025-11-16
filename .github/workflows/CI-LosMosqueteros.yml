@@ -11,7 +11,9 @@ on:
 
 jobs:
   build:
-  
+
+    runs-on: ubuntu-latest
+    
     env:
       API: ./src/AppForSEII2526.API/AppForSEII2526.API.csproj
       WEB: ./src/AppForSEII2526.API/AppForSEII2526.Web.csproj
@@ -49,5 +51,3 @@ jobs:
         with:
           name: TestResults
           path: ./test/AppFor5EII2526.UT/TestResults/TestResults.trx
-
-    runs-on: ubuntu-latest
