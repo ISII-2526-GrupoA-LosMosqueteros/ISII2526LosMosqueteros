@@ -1,6 +1,5 @@
 ﻿using AppForSEII2526.API.Controllers;
 using AppForSEII2526.API.DTOs;
-using Humanizer.Localisation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,10 +26,11 @@ namespace AppForSEII2526.UT.ControladorDetallesOferta_test
                 new Herramienta ("Destornillador", "Acero", 15.75m, 12, fabricantes[1]),
                 new Herramienta ("Taladro", "Plástico y Metal", 56.22m, 14, fabricantes[2])
             };
+
             ApplicationUser usuario = new ApplicationUser("Juan", "Perez", "juanperez", "642709559");
 
             var oferta = new Oferta(DateTime.Today, DateTime.Today.AddDays(10), DateTime.Today, new List<OfertaItem>(), TiposDirigdaOferta.Clientes, TiposMetodoPago.TarjetaCredito, usuario);
-            oferta.OfertaItems.Add(new OfertaItem(50, 38.2m, herramientas[1], oferta));
+            oferta.OfertaItems.Add(new OfertaItem(50, 38.2m, herramientas[0], oferta));
             _context.AddRange(fabricantes);
             _context.AddRange(herramientas);
             _context.Add(usuario);
@@ -70,8 +70,9 @@ namespace AppForSEII2526.UT.ControladorDetallesOferta_test
 
             var controller = new ControladorDetallesOferta(_context, logger);
 
-            var expectedOferta = new DetalleOfertaDTO(DateTime.Today, DateTime.Today.AddDays(10), TiposMetodoPago.TarjetaCredito, TiposDirigdaOferta.Clientes, new List<OfertaItemDTO>(), DateTime.Today, 1);
-            expectedOferta.OfertaItem.Add(new OfertaItemDTO("Destornillador", "Acero", "Tools Inc", 15.75m, 38.2m, 2));
+            var expectedOferta = new DetalleOfertaDTO(DateTime.Today, DateTime.Today.AddDays(10), TiposMetodoPago.TarjetaCredito,
+                TiposDirigdaOferta.Clientes, new List<OfertaItemDTO>(), DateTime.Today, 1);
+            expectedOferta.OfertaItem.Add(new OfertaItemDTO("Martillo", "Acero", "Herramientas SA", 25.5m, 1, 50));
 
             //Act
             var result = await controller.GetDetallesdeOfertasCreadas(1);
