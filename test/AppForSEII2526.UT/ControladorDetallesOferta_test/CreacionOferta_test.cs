@@ -44,32 +44,44 @@ namespace AppForSEII2526.UT.ControladorDetallesOferta_test
 
         public static IEnumerable<object[]> TestCasesFor_CreateOferta()
         {
-            var ofertaNoItem = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var ofertaNoItem = new CreacionOfertaDTO(DateTime.Today.AddDays(15), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes, new List<OfertaItemDTO>());
 
             var ofertaItems = new List<OfertaItemDTO>() { new OfertaItemDTO("Martillo", "Acero", "Herramientas SA", 25, 1, 50) };
 
-            var ofertaFromBeforeToday = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(-1),
+            var ofertaFromBeforeToday = new CreacionOfertaDTO(DateTime.Today.AddDays(15), DateTime.Today.AddDays(-1),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes, ofertaItems);
+
+            
 
             var ofertaToBeforeFrom = new CreacionOfertaDTO(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes, ofertaItems);
 
-            var ofertaHerramientaNoDisponible = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            //Modificacion examen
+            var fechaFinUnaSemanaDespuesQueFechaInicio = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+                TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes,
+                new List<OfertaItemDTO>()
+                { new OfertaItemDTO("Martillo", "Acero", "Herramientas SA", 20 ,1, 50) });
+
+            var ofertaHerramientaNoDisponible = new CreacionOfertaDTO(DateTime.Today.AddDays(15), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO("Llave Inglesa", "Acero", "Herramientas SA", 20 ,1, 50) });
 
-            var ofertaPorcentajeNoValido = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var ofertaPorcentajeNoValido = new CreacionOfertaDTO(DateTime.Today.AddDays(15), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO("Martillo", "Acero", "Herramientas SA", 20 ,1, -100) });
+
+            
 
             var ofertaSinFechaFinal = new CreacionOfertaDTO(DateTime.MinValue, DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes, ofertaItems);
 
             var ofertaSinFechaInicio = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.MinValue,
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes, ofertaItems);
+
+            
 
             var allTests = new List<object[]>
             {
@@ -78,8 +90,9 @@ namespace AppForSEII2526.UT.ControladorDetallesOferta_test
                 new object[] { ofertaToBeforeFrom, "Error! Tu oferta debe terminar después de que empiece" },
                 new object[] { ofertaHerramientaNoDisponible, $"La herramienta con nombre {ofertaHerramientaNoDisponible.OfertaItem[0].Nombre} no fue encontrada" },
                 new object[] { ofertaPorcentajeNoValido, "Error: Introduce un valor entre 0 y 100" },
+                new object[] { fechaFinUnaSemanaDespuesQueFechaInicio, "Error! la oferta debe durar al menos una semana" },
                 new object[] { ofertaSinFechaFinal, "Error! Fecha Final es un campo obligatorio" },
-                new object[] { ofertaSinFechaInicio, "Error! Fecha Inicio es un campo obligatorio" }
+                new object[] { ofertaSinFechaInicio, "Error! Fecha Inicio es un campo obligatorio" },
 
             };
 
@@ -118,11 +131,11 @@ namespace AppForSEII2526.UT.ControladorDetallesOferta_test
             ILogger<ControladorDetallesOferta> logger = mock.Object;
             var controller = new ControladorDetallesOferta(_context, logger);
 
-            var ofertaDTO = new CreacionOfertaDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var ofertaDTO = new CreacionOfertaDTO(DateTime.Today.AddDays(15), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes,
                 new List<OfertaItemDTO>() { new OfertaItemDTO("Destornillador", "Acero", "Tools Inc", 15.75m, 2, 50) });
 
-            var expectedOfertaDetailDTO = new DetalleOfertaDTO(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes,
+            var expectedOfertaDetailDTO = new DetalleOfertaDTO(DateTime.Today.AddDays(2), DateTime.Today.AddDays(15), TiposMetodoPago.PayPal, TiposDirigdaOferta.Clientes,
                 new List<OfertaItemDTO>() { new OfertaItemDTO("Destornillador", "Acero", "Tools Inc", 15.75m, 2, 50) },
                 DateTime.Today,
                 2

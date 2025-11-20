@@ -80,6 +80,10 @@ namespace AppForSEII2526.API.Controllers
             if (creaciondeoferatas.FechaInicio != DateTime.MinValue && creaciondeoferatas.FechaInicio <= DateTime.Today)
                 ModelState.AddModelError("FechaInicio", "Error! La fecha de inicio de tu oferta debe ser posterior a hoy");
 
+            //Modificacion examen
+            if (creaciondeoferatas.FechaFinal <= creaciondeoferatas.FechaInicio.AddDays(7) && creaciondeoferatas.FechaInicio <= creaciondeoferatas.FechaFinal) //he puesto la segunda condicion para que no de conflicto con la comprobacion de si la fechafinal es anterior a la inicial
+                ModelState.AddModelError("FechaFinal", "Error! la oferta debe durar al menos una semana");
+
             if (creaciondeoferatas.FechaInicio != DateTime.MinValue
                 && creaciondeoferatas.FechaFinal != DateTime.MinValue
                 && creaciondeoferatas.FechaInicio >= creaciondeoferatas.FechaFinal)
@@ -87,7 +91,7 @@ namespace AppForSEII2526.API.Controllers
 
             if (creaciondeoferatas.OfertaItem == null || !creaciondeoferatas.OfertaItem.Any())
                 ModelState.AddModelError("OfertaItems", "Error! Tienes que incluir al menos una herramienta para aplicar una oferta");
-
+            
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 
