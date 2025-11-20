@@ -61,6 +61,9 @@ namespace AppForSEII2526.UT.ControladorDetallesCompra_test
             var compra_herramienta_erronea= new CreacionCompraDTO("Juan", "Perez", "Av. España 21", TiposMetodoPago.TarjetaCredito, null, null, new List<CompraItemDTO>());
                compra_herramienta_erronea.CompraItems.Add( new CompraItemDTO("Tornillo", "Acero", 2, "Tornillo de Acero", 15.75m));
 
+            var compra_herramienta_sindescripcion_mayorcantidad= new CreacionCompraDTO("Juan", "Perez", "Av. España 21", TiposMetodoPago.TarjetaCredito, null, null, new List<CompraItemDTO>());
+            compra_herramienta_sindescripcion_mayorcantidad.CompraItems.Add(new CompraItemDTO("Destornillador", "Acero", 3, "", 15.75m));
+
 
             var allTest = new List<object[]>
             {
@@ -71,7 +74,8 @@ namespace AppForSEII2526.UT.ControladorDetallesCompra_test
                 new object[] {compra_usuario_NF, "El usuario no existe." },
                 new object[] {compra_sin_descripcion, "La descripción no puede estar vacia"},
                 new object[] {compra_cantidad, "La cantidad debe ser mayor que cero."},
-                new object[] {compra_herramienta_erronea, $"La herramienta '{compra_herramienta_erronea.CompraItems[0].Nombre}' no existe." }
+                new object[] {compra_herramienta_erronea, $"La herramienta '{compra_herramienta_erronea.CompraItems[0].Nombre}' no existe." },
+                new object[] {compra_herramienta_sindescripcion_mayorcantidad, "¡Error! Estás comprando demasiadas herramientas sin descripción" }
             };
 
             return allTest;
