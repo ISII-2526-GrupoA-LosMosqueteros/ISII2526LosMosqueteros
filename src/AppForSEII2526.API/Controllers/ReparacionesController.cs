@@ -71,6 +71,13 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> CrearReparacion(CreacionReparacionDTO creacionReparacion)
         {
             // Comprobamos validaciones
+
+            //El caso de uso del examen indica que el campo no puede ser nulo, al forzar que empiece por +34 ya comprueba el null
+            if(!creacionReparacion.Phone.StartsWith("+34"))
+            {
+                ModelState.AddModelError("Phone", "¡Error!, el telefono debe empezar por +34.");
+            }
+
             if(creacionReparacion.FechaEntrega < DateTime.Today)
             {
                 ModelState.AddModelError("FechaEntrega", "La fecha de entrega no puede ser anterior a hoy.");
