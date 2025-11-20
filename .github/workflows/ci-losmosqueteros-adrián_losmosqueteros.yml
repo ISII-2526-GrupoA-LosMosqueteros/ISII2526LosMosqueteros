@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Check out repository code branch development
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
             ref: 'development'
 
@@ -84,4 +84,5 @@ jobs:
           package: .
 
           
+
 
