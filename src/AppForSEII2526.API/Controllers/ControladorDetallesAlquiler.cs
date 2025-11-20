@@ -67,7 +67,7 @@ namespace AppForSEII2526.API.Controllers
             {
                 ModelState.AddModelError("FechaInicio&FechaFin", "¡Error! Tu alquiler debe acabar después de cuando empezó");
             }
-            
+
             if (creacionAlquiler.AlquilerItems.Count == 0)
             {
                 ModelState.AddModelError("AlquilarItems", "¡Error! Tienes que incluir al menos una herramienta para alquilar");
@@ -89,11 +89,11 @@ namespace AppForSEII2526.API.Controllers
                 ModelState.AddModelError("Apellidos", "¡Error! Los apellidos son un campo obligatorio");
             }
 
-            if (creacionAlquiler.DireccionEnvio == null)
+          
+            if (!creacionAlquiler.DireccionEnvio.Contains("Calle"))
             {
-                ModelState.AddModelError("DireccionEnvio", "¡Error! La direccion de envio es un campo obligatorio");
+                ModelState.AddModelError("DireccionEnvio", "¡Error! La dirección de envío debe empezar por la palabra Calle");
             }
-
           
 
             if (ModelState.ErrorCount > 0)
