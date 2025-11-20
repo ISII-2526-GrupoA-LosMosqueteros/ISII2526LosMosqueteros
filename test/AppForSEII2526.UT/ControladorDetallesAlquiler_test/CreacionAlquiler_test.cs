@@ -15,7 +15,7 @@ namespace AppForSEII2526.UT.ControladorDetallesAlquiler_test
     {
         private const string _userName = "Mario";
         private const string _customerSurname = "Torres";
-        private const string _deliveryAddress = "Avda. España s/n, Albacete 02071";
+        private const string _deliveryAddress = "Calle España s/n, Albacete 02071";
 
         private const string _herramienta1Nombre = "Martillo";
         private const string _herramienta2Nombre = "Destornillador";
@@ -82,8 +82,8 @@ namespace AppForSEII2526.UT.ControladorDetallesAlquiler_test
                 _deliveryAddress, TiposMetodoPago.TarjetaCredito,
                 DateTime.Today.AddDays(2), DateTime.Today.AddDays(4), alquilarItems);
 
-            var alquilarNoDireccionEnvio = new CreacionAlquilerDTO(_userName, _customerSurname,
-                null, TiposMetodoPago.TarjetaCredito,
+            var alquilarNoCalle = new CreacionAlquilerDTO(_userName, _customerSurname,
+                "Avnd. España s/n, Albacete 02071", TiposMetodoPago.TarjetaCredito,
                 DateTime.Today.AddDays(2), DateTime.Today.AddDays(4), alquilarItems);
 
             var allTests = new List<object[]>
@@ -94,7 +94,7 @@ namespace AppForSEII2526.UT.ControladorDetallesAlquiler_test
                 new object[] { alquilarNoUsuario, "¡Error! Usuario no registrado", },
                 new object[] { alquilarNoNombre, "¡Error! El nombre es un campo obligatorio", },
                 new object[] { alquilarNoApellidos, "¡Error! Los apellidos son un campo obligatorio", },
-                new object[] { alquilarNoDireccionEnvio, "¡Error! La direccion de envio es un campo obligatorio", },
+                new object[] { alquilarNoCalle, "¡Error! La dirección de envío debe empezar por la palabra Calle", },
 
 
             };
@@ -148,7 +148,7 @@ namespace AppForSEII2526.UT.ControladorDetallesAlquiler_test
                   new AlquilarItemDTO(3, _herramienta2Nombre, "Acero", 15.75m, 3)}); // Total: 204 + 189 = 393
 
             var expectedalquilerDetalleDTO = new DetalleAlquilarDTO(2, _userName, _customerSurname,
-                        "Avda. España s/n, Albacete 02071", DateTime.Today, 393m,
+                        "Calle España s/n, Albacete 02071", DateTime.Today, 393m,
                         DateTime.Today.AddDays(2), DateTime.Today.AddDays(5),
                         new List<AlquilarItemDTO>());
             expectedalquilerDetalleDTO.AlquilarItems.Add(new AlquilarItemDTO(1, _herramienta1Nombre, "Acero", 204.0m, 2));
