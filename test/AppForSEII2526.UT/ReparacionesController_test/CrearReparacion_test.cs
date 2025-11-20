@@ -54,7 +54,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Perez",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
             reparacionFechaEntregaAnteriorAHoy.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
 
             var reparacionSinItems = new CreacionReparacionDTO(
@@ -63,7 +63,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Perez",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
 
             var reparacionSinNombre = new CreacionReparacionDTO(
                 DateTime.Today,
@@ -71,7 +71,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Perez",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
             reparacionSinNombre.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
 
             var reparacionSinApellido = new CreacionReparacionDTO(
@@ -80,7 +80,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
             reparacionSinApellido.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
 
             //nombre y apellidos rellenado, pero no existen en la base de datos
@@ -90,7 +90,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Lopez",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
             reparacionSinUsuario.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
 
             var reparacionCantidadErronea = new CreacionReparacionDTO(
@@ -99,7 +99,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Perez",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
             reparacionCantidadErronea.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", -1));
 
             var reparacionHerramientaErronea = new CreacionReparacionDTO(
@@ -108,9 +108,17 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Perez",
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
-                null);
+                "+34111111111");
             reparacionHerramientaErronea.RepararItem.Add(new RepararItemDTO(1, "Martillo", 10.3m, "Reparar motor", 2));
 
+            var reparacionTelefonoSinPrefijo = new CreacionReparacionDTO(
+                DateTime.Today,
+                "Juan",
+                "Perez",
+                new List<RepararItemDTO>(),
+                TiposMetodoPago.Efectivo,
+                "111111111");
+            reparacionFechaEntregaAnteriorAHoy.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
 
             var allTest = new List<object[]>
             {
@@ -120,7 +128,8 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new object[] {reparacionSinApellido, "El apellido no puede estar vacio"},
                 new object[] {reparacionSinUsuario, "Error! El usuario no está registrado" },
                 new object[] {reparacionCantidadErronea, "La cantidad debe ser mayor de 0"},
-                new object[] {reparacionHerramientaErronea, $"La herramienta {reparacionHerramientaErronea.RepararItem[0].Nombre} no existe." }
+                new object[] {reparacionHerramientaErronea, $"La herramienta {reparacionHerramientaErronea.RepararItem[0].Nombre} no existe." },
+                new object[] { reparacionTelefonoSinPrefijo, "¡Error!, el telefono debe empezar por +34."}
             };
 
             return allTest;
@@ -163,12 +172,11 @@ namespace AppForSEII2526.UT.ReparacionesController_test
             // Arrange (Se define todas las variables que se necesitan)
             var controller = new ReparacionesController(_context, null);
 
-            //preguntar porque estoy trucando a mano los días de recogida con los de la herramienta
             DateTime desde = DateTime.Today.AddDays(6);
             DateTime hasta = DateTime.Today.AddDays(8);
 
 
-            var creacionDeReparaciones = new CreacionReparacionDTO(desde, "Juan", "Perez", new List<RepararItemDTO>(), TiposMetodoPago.TarjetaCredito, null);
+            var creacionDeReparaciones = new CreacionReparacionDTO(desde, "Juan", "Perez", new List<RepararItemDTO>(), TiposMetodoPago.TarjetaCredito, "+34111111111");
             creacionDeReparaciones.RepararItem.Add(new RepararItemDTO(500,"Sierra", 1200.0m, "Sierra para Madera", 2));
 
             var expectedReparacion = new DetalleRepararDTO(2, desde, hasta, 41.0m, "Juan", "Perez", new List<RepararItemDTO>());
