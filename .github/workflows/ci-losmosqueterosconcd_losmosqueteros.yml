@@ -19,8 +19,11 @@ jobs:
       UT:  ./test/AppForSEII2526.UT/AppForSEII2526.UT.csproj
 
     steps:
-      - uses: actions/checkout@v4
-
+      - name: Check out repository code branch development
+        uses: actions/checkout@v4
+        with:
+            ref: 'development'
+            
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
@@ -40,7 +43,7 @@ jobs:
         run: dotnet test ${{ env.UT }} --configuration Release --no-build --logger "trx;LogFileName=TestResults.trx"
         
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish ${{ env.API }}  -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -77,3 +80,4 @@ jobs:
           package: .
 
           
+
