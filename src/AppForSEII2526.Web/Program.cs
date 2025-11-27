@@ -45,6 +45,8 @@ builder.Services.AddScoped<AppForHerramientasAPIClient>(sp => new AppForHerramie
 
 builder.Services.AddScoped<ComprarStateContainer>();
 
+//adding an In-memory state container service
+builder.Services.AddScoped<ReparacionesStateContainer>();
 
 var app = builder.Build();
 
