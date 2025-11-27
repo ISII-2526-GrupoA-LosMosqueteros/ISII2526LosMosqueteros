@@ -35,7 +35,7 @@ namespace AppForSEII2526.API.Controllers
                 .Include(c => c.CompraItem)
                     .ThenInclude(ci => ci.Herramienta)
                         .ThenInclude(h => h.Fabricante)
-                .Select(c => new DetallesCompraDTO(c.ApplicationUser.Name,c.ApplicationUser.UserName,c.ApplicationUser.Email,c.PrecioTotal,c.FechaCompra,c.CompraItem
+                .Select(c => new DetallesCompraDTO(c.ApplicationUser.Name,c.ApplicationUser.Surname,c.DireccionEnvio,c.PrecioTotal,c.FechaCompra,c.CompraItem
                     .Select(ci => new CompraItemDTO(ci.Herramienta.Nombre,ci.Herramienta.Material,ci.Cantidad,ci.Descripcion,ci.Precio)).ToList<CompraItemDTO>()))
                 .FirstOrDefaultAsync();
             
@@ -116,6 +116,15 @@ namespace AppForSEII2526.API.Controllers
 
             foreach (var item in creaciondecompras.CompraItems)
             {
+
+                if (string.IsNullOrEmpty(item.Descripcion) && item.Cantidad == 3)
+                {
+                    ModelState.AddModelError("Descripción y Cantidad", "¡Error! Estás comprando demasiadas herramientas sin descripción");
+                }
+
+                if (ModelState.ErrorCount > 0)
+                    return BadRequest(new ValidationProblemDetails(ModelState));
+
                 if (item.Cantidad <= 0)
                 {
                     ModelState.AddModelError("Cantidad", "La cantidad debe ser mayor que cero.");
@@ -124,8 +133,12 @@ namespace AppForSEII2526.API.Controllers
                 {
                     ModelState.AddModelError("Descripción", "La descripción no puede estar vacia");
                 }
+
+                
+
                 if (ModelState.ErrorCount > 0)
                     return BadRequest(new ValidationProblemDetails(ModelState));
+
                 var herramienta = herramientas.FirstOrDefault(h => h.Nombre == item.Nombre);
                 if (herramienta == null)
                 {

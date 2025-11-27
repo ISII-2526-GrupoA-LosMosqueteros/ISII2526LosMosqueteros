@@ -1,4 +1,5 @@
 ﻿using AppForSEII2526.API.DTOs;
+using AppForSEII2526.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,6 +61,150 @@ namespace AppForSEII2526.API.Controllers
 
 
             return Ok(reparacion);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(DetalleRepararDTO), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
+        public async Task<ActionResult> CrearReparacion(CreacionReparacionDTO creacionReparacion)
+        {
+            // Comprobamos validaciones
+
+            //El caso de uso del examen indica que el campo no puede ser nulo, al forzar que empiece por +34 ya comprueba el null
+            if(!creacionReparacion.Phone.StartsWith("+34"))
+            {
+                ModelState.AddModelError("Phone", "¡Error!, el telefono debe empezar por +34.");
+            }
+
+            if(creacionReparacion.FechaEntrega < DateTime.Today)
+            {
+                ModelState.AddModelError("FechaEntrega", "La fecha de entrega no puede ser anterior a hoy.");
+            }
+
+            //preguntar que es un reparacionItem
+            if (creacionReparacion.RepararItem.Count == 0 || creacionReparacion.RepararItem == null)
+            {
+                ModelState.AddModelError("RepararItem", "La reparacion debe contener al menos un item a reparar.");
+            }
+
+            if (string.IsNullOrEmpty(creacionReparacion.Name))
+            {
+                ModelState.AddModelError("Nombre", "El nombre no puede estar vacio");
+            }
+
+            if (string.IsNullOrEmpty(creacionReparacion.Surname))
+            {
+                ModelState.AddModelError("Apellido", "El apellido no puede estar vacio");
+            }
+
+
+
+            var usuario = _context.ApplicationUsers.FirstOrDefault(au => au.Name == creacionReparacion.Name && au.Surname == creacionReparacion.Surname);
+            if (usuario == null)
+                ModelState.AddModelError("ApplicationUsers", "Error! El usuario no está registrado");
+
+            if(ModelState.ErrorCount > 0)
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            
+            var nombreHerramientas = creacionReparacion.RepararItem.Select(ri => ri.Nombre).ToList();
+
+            
+            var herramientas = _context.Herramientas
+                .Include(f => f.Fabricante)
+                .Where(h => nombreHerramientas.Contains(h.Nombre))
+                .ToList();
+
+            Reparacion reparacion = new Reparacion
+            {
+                ApplicationUser = usuario,
+                TiposMetodoPago = creacionReparacion.TiposMetodoPago,
+                ReparacionItems = new List<ReparacionItem>(),
+                FechaEntrega = creacionReparacion.FechaEntrega
+            };
+
+            reparacion.PrecioTotal = 0m;
+
+            int numDiasReparacion = 0;
+
+            foreach (var item in creacionReparacion.RepararItem)
+            {
+                if(item.Cantidad <= 0)
+                {
+                    ModelState.AddModelError("Cantidad", "La cantidad debe ser mayor de 0");
+                }
+
+                var herr = herramientas.FirstOrDefault(h => h.Nombre == item.Nombre);
+                if(herr == null)
+                {
+                    ModelState.AddModelError("Herramienta", $"La herramienta {item.Nombre} no existe.");
+                }
+                else
+                {
+                    string descripcion = null;
+                    if (item.Descripcion.Length > 0)
+                    {
+                        descripcion = item.Descripcion;
+                    }
+                    
+                    if(herr.TiempoReparacion > numDiasReparacion)
+                    {
+                        numDiasReparacion = herr.TiempoReparacion;
+                    }
+                    reparacion.ReparacionItems.Add(new ReparacionItem
+                    {
+                        Precio = herr.Precio * item.Cantidad,
+                        Descripcion = descripcion,
+                        Cantidad = item.Cantidad,
+                        Herramienta = herr,
+                        Reparacion = reparacion
+
+                    });
+                }
+            }
+
+            reparacion.PrecioTotal = reparacion.ReparacionItems.Sum(ri => ri.Precio);
+            reparacion.FechaRecogida = reparacion.FechaEntrega.AddDays(numDiasReparacion);
+
+            if (ModelState.ErrorCount > 0)
+            {
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+
+            _context.Add(reparacion);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{ex.Message}");
+                ModelState.AddModelError("Reparacion", $"Error! ha habido un error guardando tu reparacion, por favor prueba mas tarde.");
+                return Conflict("Error" + ex.Message);
+            }
+
+
+            var detalleReparacion = new DetalleRepararDTO(
+                reparacion.Id,
+                reparacion.FechaEntrega,
+                reparacion.FechaRecogida,
+                reparacion.PrecioTotal,
+                usuario.Name,
+                usuario.Surname,
+                reparacion.ReparacionItems
+                    .Select(ri => new RepararItemDTO(
+                        ri.Herramienta.Id,
+                        ri.Herramienta.Nombre,
+                        ri.Precio,
+                        ri.Descripcion,
+                        ri.Cantidad)
+                    ).ToList()
+                );
+
+            return CreatedAtAction("CrearReparacion", new { id = reparacion.Id }, detalleReparacion);
+
         }
     }
 }

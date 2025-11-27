@@ -4,6 +4,22 @@ namespace AppForSEII2526.API.Models
 {
     public class Alquiler
     {
+        public Alquiler()
+        {
+        }
+
+        public Alquiler(string direccionEnvio, DateTime fechaAlquiler, DateTime fechaFin, DateTime fechaInicio, int periodo, decimal precioTotal, IList<AlquilarItem> alquilarItems, TiposMetodoPago tiposMetodoPago, ApplicationUser applicationUser)
+        {
+            DireccionEnvio = direccionEnvio;
+            FechaAlquiler = fechaAlquiler;
+            FechaFin = fechaFin;
+            FechaInicio = fechaInicio;
+            Periodo = periodo;
+            PrecioTotal = precioTotal;
+            AlquilarItems = alquilarItems;
+            TiposMetodoPago = tiposMetodoPago;
+            ApplicationUser = applicationUser;
+        }
 
         public String DireccionEnvio { get; set; }
 

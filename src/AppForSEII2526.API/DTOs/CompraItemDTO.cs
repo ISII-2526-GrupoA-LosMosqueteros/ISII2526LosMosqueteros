@@ -29,5 +29,14 @@
         [Precision(10, 2)]
         public decimal Precio { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is CompraItemDTO dTO &&
+                   Nombre == dTO.Nombre &&
+                   Material == dTO.Material &&
+                   Cantidad == dTO.Cantidad &&
+                   Descripcion == dTO.Descripcion &&
+                   Precio == dTO.Precio;
+        }
     }
 }

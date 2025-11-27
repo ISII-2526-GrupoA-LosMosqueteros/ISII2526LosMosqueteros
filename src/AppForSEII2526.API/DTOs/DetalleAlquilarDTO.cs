@@ -45,5 +45,16 @@ namespace AppForSEII2526.API.DTOs
         public DateTime FechaInicio { get; set; }
 
         public IList<AlquilarItemDTO> AlquilarItems { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is DetalleAlquilarDTO dTO &&
+                   Id == dTO.Id &&
+                   Nombre == dTO.Nombre &&
+                   Apellidos == dTO.Apellidos &&
+                   DireccionEnvio == dTO.DireccionEnvio &&
+                   PrecioTotal == dTO.PrecioTotal &&
+                   AlquilarItems.SequenceEqual(dTO.AlquilarItems);
+        }
     }
 }

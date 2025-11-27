@@ -2,6 +2,21 @@
 {
     public class Compra
     {
+    
+        public Compra()
+        {
+        }
+
+        public Compra(string direccionEnvio, DateTime fechaCompra, IList<CompraItem> compraItem, decimal precioTotal, TiposMetodoPago tipoMetodoPago, ApplicationUser applicationUser)
+        {
+            DireccionEnvio = direccionEnvio;
+            FechaCompra = fechaCompra;
+            PrecioTotal = precioTotal;
+            CompraItem = compraItem;
+            TipoMetodoPago = tipoMetodoPago;
+            ApplicationUser = applicationUser;
+        }
+
         public string DireccionEnvio { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]

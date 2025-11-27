@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+namespace AppForSEII2526.API.DTOs
 {
     public class HerramientaParaAlquilarDTO
     {
@@ -25,5 +26,20 @@
         [Range(0.05, float.MaxValue, ErrorMessage = "El precio minimo es 0.05")]
         [Precision(10, 2)]
         public decimal Precio { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is HerramientaParaAlquilarDTO dTO &&
+                   Id == dTO.Id &&
+                   Nombre == dTO.Nombre &&
+                   Material == dTO.Material &&
+                   Fabricante == dTO.Fabricante &&
+                   Precio == dTO.Precio;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Nombre, Material, Fabricante, Precio);
+        }
     }
 }

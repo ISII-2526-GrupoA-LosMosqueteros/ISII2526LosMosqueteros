@@ -3,6 +3,20 @@
     [PrimaryKey(nameof(OfertaId), nameof(HerramientaId))]
     public class OfertaItem
     {
+        public OfertaItem()
+        {
+        }
+
+        public OfertaItem(int porcentaje, decimal precioFinal, Herramienta herramienta, Oferta oferta)
+        {
+            Porcentaje = porcentaje;
+            PrecioFinal = precioFinal;
+            Herramienta = herramienta;
+            Oferta = oferta;
+            HerramientaId = herramienta.Id;
+            OfertaId = oferta.Id;
+        }
+
         public int HerramientaId { get; set; }
         public int OfertaId { get; set; }
 

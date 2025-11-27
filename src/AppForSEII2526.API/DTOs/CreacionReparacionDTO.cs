@@ -1,20 +1,18 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+namespace AppForSEII2526.API.DTOs
 {
-    public class DetalleRepararDTO
+    public class CreacionReparacionDTO
     {
-        public DetalleRepararDTO(int id, DateTime fechaEntrega, DateTime fechaRecogida,
-            decimal precioTotal, string name, string surname, IList<RepararItemDTO> repararItem)
+        public CreacionReparacionDTO(DateTime fechaEntrega,
+            string name, string surname, IList<RepararItemDTO> repararItem, TiposMetodoPago tiposMetodoPago, string phone)
         {
-            Id = id;
             FechaEntrega = fechaEntrega;
-            FechaRecogida = fechaRecogida;
-            PrecioTotal = precioTotal;
             Name = name;
             Surname = surname;
             RepararItem = repararItem;
+            TiposMetodoPago = tiposMetodoPago;
+            Phone = phone;
         }
-
-        public int Id { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
@@ -36,24 +34,24 @@
         [Display(Name = "Apellidos")]
         public string Surname { get; set; }
 
+        [Display(Name = "Telefono")]
+        public string Phone { get; set; }
+
+        public TiposMetodoPago TiposMetodoPago { get; set; }
+
         public IList<RepararItemDTO> RepararItem { get; set; }
 
         public override bool Equals(object? obj)
         {
-            return obj is DetalleRepararDTO dTO &&
-                   Id == dTO.Id &&
-                   Name == dTO.Name &&
-                   Surname == dTO.Surname &&
+            return obj is CreacionReparacionDTO dTO &&
                    FechaEntrega == dTO.FechaEntrega &&
                    FechaRecogida == dTO.FechaRecogida &&
                    PrecioTotal == dTO.PrecioTotal &&
+                   Name == dTO.Name &&
+                   Surname == dTO.Surname &&
+                   Phone == dTO.Phone &&
+                   TiposMetodoPago == dTO.TiposMetodoPago &&
                    RepararItem.SequenceEqual(dTO.RepararItem);
         }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Name, Surname, FechaEntrega, FechaRecogida, RepararItem);
-        }
-
     }
 }

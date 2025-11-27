@@ -3,6 +3,21 @@
     [PrimaryKey(nameof(ReparacionId), nameof(HerramientaId))]
     public class ReparacionItem
     {
+        public ReparacionItem()
+        {
+        }
+
+        public ReparacionItem(decimal precio, int cantidad, string? descripcion, Herramienta herramienta, Reparacion reparacion)
+        {
+            Precio = precio;
+            Cantidad = cantidad;
+            Descripcion = descripcion;
+            Herramienta = herramienta;
+            Reparacion = reparacion;
+            ReparacionId = reparacion.Id;
+            HerramientaId = herramienta.Id;
+        }
+
         public int ReparacionId { get; set; }
         public int HerramientaId { get; set; }
 

@@ -4,9 +4,9 @@
     {
         public CreacionAlquilerDTO(string name, string surname, string direccionEnvio, TiposMetodoPago metodoPago, DateTime fechaInicio, DateTime fechaFin, IList<AlquilarItemDTO> alquilerItems,string? telefono = null, string? correoElectronico = null)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Surname = surname ?? throw new ArgumentNullException(nameof(surname));
-            DireccionEnvio = direccionEnvio ?? throw new ArgumentNullException(nameof(direccionEnvio));
+            Name = name ;
+            Surname = surname;
+            DireccionEnvio = direccionEnvio;
             MetodoPago = metodoPago;
             FechaInicio = fechaInicio;
             FechaFin = fechaFin;
@@ -59,17 +59,9 @@
         [Precision(10, 2)]
         public decimal PrecioTotal { get; set; }
 
-
-        protected bool CompararFechas(DateTime fecha1, DateTime fecha2)
-        {
-            return (fecha1.Subtract(fecha2) < new TimeSpan(0, 1, 0));
-        }
-
         public override bool Equals(object? obj)
         {
-            return obj is CreacionAlquilerDTO dto &&
-                   CompararFechas(FechaInicio, dto.FechaInicio) &&
-                   CompararFechas(FechaFin, dto.FechaFin) &&
+            return obj is CreacionAlquilerDTO dto &&    
                    DireccionEnvio == dto.DireccionEnvio &&
                    Name == dto.Name &&
                    Surname == dto.Surname &&
