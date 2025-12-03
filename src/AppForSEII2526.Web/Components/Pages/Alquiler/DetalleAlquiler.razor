@@ -26,10 +26,6 @@ else
             <td id="DireccionEnvio">@alquiler.DireccionEnvio</td>
         </tr>
         <tr>
-            <th>Metodo de Pago</th>
-            <td id="TiposMetodoPago">@alquiler</td>
-        </tr>
-        <tr>
             <th>Fecha de alquiler</th>
             <td id="FechaAlquiler">@alquiler.FechaAlquiler.ToString("dd/MM/yyyy hh:mm:ss")</td>
         </tr>
@@ -47,6 +43,8 @@ else
                 <th scope="col">Nombre</th>
                 <th scope="col">Material</th>
                 <th scope="col">Precio del alquiler</th>
+                <th scope="col">Cantidad</th>
+
             </tr>
         </thead>
         <tbody>
@@ -56,6 +54,10 @@ else
                     <td>@item.Nombre</td>
                     <td>@item.Material</td>
                     <td>@item.Precio €</td>
+                    <td>@item.Cantidad</td>
+                   
+
+
                 </tr>
             }
         </tbody>
@@ -66,7 +68,6 @@ else
         </tfoot>
 
     </table>
-}
 
 @using AppForSEII2526.Web.API
 
