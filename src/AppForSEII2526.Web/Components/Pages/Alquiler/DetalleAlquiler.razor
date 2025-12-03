@@ -1,0 +1,120 @@
+﻿@page "/alquiler/detallealquiler"
+
+
+@using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
+@inject AppForHerramientasAPIClient apiclient
+
+<h3>DetalleAlquiler</h3>
+
+@*@attribute [Authorize]*@
+
+@if (alquiler == null)
+{
+    <p>@error</p>
+}
+
+else
+{
+    <table class="table table-borderless table-sm">
+        <tr>
+            <th>Nombre y Apellido</th>
+            <td id="NombreUsuario">@alquiler.Nombre @alquiler.Apellidos</td>
+        </tr>
+        <tr>
+            <th>Direccion de envio</th>
+            <td id="DireccionEnvio">@alquiler.DireccionEnvio</td>
+        </tr>
+        <tr>
+            <th>Metodo de Pago</th>
+            <td id="TiposMetodoPago">@alquiler</td>
+        </tr>
+        <tr>
+            <th>Fecha de alquiler</th>
+            <td id="FechaAlquiler">@alquiler.FechaAlquiler.ToString("dd/MM/yyyy hh:mm:ss")</td>
+        </tr>
+        <tr>
+            <th>Periodo de alquiler</th>
+            <td id="PeriodoAlquiler">@alquiler.FechaInicio.DateTime.ToString("dd/MM/yyyy") - @alquiler.FechaFin.DateTime.ToString("dd/MM/yyyy")</td>
+        </tr>
+    </table>
+
+    <h4>Herramientas Alquiladas</h4>
+
+    <table class="table" id="HerramientasAlquiladas">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Material</th>
+                <th scope="col">Precio del alquiler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AlquilarItemDTO item in alquiler.AlquilarItems)
+            {
+                <tr id="RentalItem_@item.Id">
+                    <td>@item.Nombre</td>
+                    <td>@item.Material</td>
+                    <td>@item.Precio €</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @*colspan is used to state that TWO columns are collapsed*@
+        <th scope="row" colspan="2" class="text-end">Precio Total</th>
+        <td id="PrecioTotal">@alquiler.PrecioTotal €</td>
+        </tfoot>
+
+    </table>
+}
+
+@using AppForSEII2526.Web.API
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int AlquilerID { get; set; }
+    private DetalleAlquilarDTO alquiler;
+    private string error = "";
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        //we check the user is logged in
+        string userName = "";
+        if (authenticationState is not null)
+        {
+            var authState = await authenticationState;
+            var user = authState?.User;
+
+            //we retrieve the id of the user logged in
+            if (user is not null)
+            {
+                if (user.Identity is not null && user.Identity.IsAuthenticated && user.IsInRole("User"))
+                {
+                    userName = user.Identity.Name;
+                }
+            }
+        }
+
+        try
+        {
+            alquiler = await apiclient.GetDetallesdeHerramientasAlquiladasAsync(AlquilerID);
+        }
+        catch (ApiException exception)
+        {
+            alquiler = null;
+        }
+        if ((alquiler == null) || (alquiler.Nombre != userName))
+        {
+            error = $"¡Error! No tienes autorización para ver este alquiler o no hay ningún alquiler con id={AlquilerID}";
+        }
+
+
+    }
+
+}
+}
