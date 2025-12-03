@@ -194,26 +194,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DetallesCompraDTO"
-                  }
+                  "$ref": "#/components/schemas/DetallesCompraDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DetallesCompraDTO"
-                  }
+                  "$ref": "#/components/schemas/DetallesCompraDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/DetallesCompraDTO"
-                  }
+                  "$ref": "#/components/schemas/DetallesCompraDTO"
                 }
               }
             }
@@ -1029,12 +1020,6 @@
       "CreacionOfertaDTO": {
         "type": "object",
         "properties": {
-          "porcentaje": {
-            "maximum": 100,
-            "minimum": 0,
-            "type": "integer",
-            "format": "currency"
-          },
           "fechaFinal": {
             "type": "string",
             "format": "date"
@@ -1390,6 +1375,12 @@
       "OfertaItemDTO": {
         "type": "object",
         "properties": {
+          "porcentaje": {
+            "maximum": 100,
+            "minimum": 0,
+            "type": "integer",
+            "format": "currency"
+          },
           "id": {
             "type": "integer",
             "format": "int32"
@@ -1418,7 +1409,8 @@
           "precioFinal": {
             "minimum": 0.05,
             "type": "number",
-            "format": "currency"
+            "format": "currency",
+            "readOnly": true
           }
         },
         "additionalProperties": false
