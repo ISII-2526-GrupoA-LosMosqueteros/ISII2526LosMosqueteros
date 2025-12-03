@@ -3,9 +3,8 @@ using AppForSEII2526.Web.API;
 using AppForSEII2526.Web.Components;
 using AppForSEII2526.Web.Components.Account;
 using AppForSEII2526.Web.Data;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using AppForSEII2526.Web.API;
+using AppForSEII2526.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +42,12 @@ string? URI2API = builder.Configuration.GetValue(typeof(string), "AppForHerramie
 //We creaete the service for accessing the API from where .WEB project
 builder.Services.AddScoped<AppForHerramientasAPIClient>(sp => new AppForHerramientasAPIClient(URI2API, new HttpClient()));
 
-builder.Services.AddScoped<OfertaStateContainer>();
+builder.Services.AddScoped<AlquilarStateContainer>();
+
+builder.Services.AddScoped<ComprarStateContainer>();
+
+//adding an In-memory state container service
+builder.Services.AddScoped<ReparacionesStateContainer>();
 
 var app = builder.Build();
 
