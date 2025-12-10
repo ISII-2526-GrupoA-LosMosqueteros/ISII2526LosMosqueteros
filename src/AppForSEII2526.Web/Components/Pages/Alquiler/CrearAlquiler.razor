@@ -123,8 +123,9 @@
     {
         get
         {
-            int dias = (alquiler.FechaFin.DateTime - alquiler.FechaInicio.DateTime).Days;
+            int dias = (alquiler.FechaFin.DateTime - alquiler.FechaInicio.DateTime).Days + 1;
             double precio = alquiler.AlquilerItems.Sum(ri => ri.Precio * dias * ri.Cantidad);
+            alquiler.PrecioTotal = precio;
             return Convert.ToDecimal(precio);
         }
     }
