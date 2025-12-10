@@ -1,0 +1,160 @@
+﻿@page "/Oferta/SelectHerramientaParaOferta"
+
+@using AppForSEII2526.Web.API
+@inject AppForHerramientasAPIClient apiclient
+@inject ILogger<SelectHerramientaParaOferta> logger
+@inject OfertaStateContainer rentalState
+@inject NavigationManager navigation
+
+
+<h3>Seleccionar Herramientas Para Oferta</h3>
+<div class="container-fluid">
+    <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
+        <p id="ErrorsShown">Errors: @errors</p>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Precio</span>
+                        <input type="text" id="inputTitle" @bind=precio class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Fabricante</span>
+                        <input type="text" id="inputGenre" @bind=fabricante class="form-control" placeholder="Fabricante" aria-label="Fabricante" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" @onclick=@buscarHerramientas id="buscarHerramientas">Buscar herramientas</button>
+                </div>
+            </div>
+            <div class="row">
+                <p>Aquí se mostraré la lista de herramientas</p>
+                @if (herramientas == null)
+                {
+                    <p>Cargando herramientas....</p>
+                }
+                else
+                {
+                    <div class="mh-100 table-responsive">
+                        <table class="table table-condensed table-hover" id="Tabla de herramientas">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Fabricante</th>
+                                    <th>Material</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var herramientas in herramientas)
+                                {
+                                    <tr id="HerramientaData_@herramientas.Id">
+                                        <td>@herramientas.Nombre</td>
+                                        <td>@herramientas.Fabricante</td>
+                                        <td>@herramientas.Material</td>
+                                        <td>@herramientas.Precio</td>
+                                        <td>
+                                            <button class="btn btn-outline-secondary" id="movieToRent_@herramientas.Id" @onclick="@(() => AñadirHerramientaParaOferta(herramientas))">Add</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="col-2">
+            @if (herramientas == null)
+            {
+                <p>Cargando herramientas....</p>
+            }
+            else
+            {
+                <p>Número de herramientas @herramientas.Count</p>
+
+            }
+        </div>
+
+    </div>
+    <div class="col-2" hidden="@hideRentingCart">
+        <div class="row">
+            <h3>Shopping Cart</h3>
+        </div>
+        @foreach (OfertaItemDTO item in oferta.OfertaItem)
+        {
+            <div class="row">
+                <button type="button" class="btn btn-light" id="removeMovie_@item.Id" @onclick="@(() => RemoveOfertaItemTo(item))">x @item.Nombre - @item.Precio</button>
+            </div>
+        }
+        <div class="row">
+            <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@OfertaHerramientas>Oferta de herramientas</button>
+        </div>
+
+    </div>
+
+
+</div>
+
+@code {
+    private bool hideRentingCart { get { return oferta.OfertaItem.Count == 0; } }
+    private ICollection<HerramientasParaOfertaDTO> herramientas;
+    private bool hideErrors { get { return errors.Length == 0; } }
+    private string errors = "";
+    private double? precio { get; set; }
+    private string fabricante { get; set; }
+
+    private CreacionOfertaDTO oferta => rentalState.Oferta;
+
+    private bool hiddenRentingCart = true;
+
+    private void AñadirHerramientaParaOferta(HerramientasParaOfertaDTO herramienta)
+    {
+        rentalState.AñadirHerramientaParaOferta(herramienta);
+    }
+
+    private void RemoveOfertaItemTo(OfertaItemDTO item)
+    {
+        rentalState.RemoveOfertaItemTo(item);
+        if (oferta.OfertaItem.Count == 0) hiddenRentingCart = true;
+    }
+
+    public async void buscarHerramientas()
+    {
+        if (precio == 0)
+        {
+            precio = null;
+        }
+
+        try
+        {
+            herramientas = await apiclient.GetHerramientasParaOfertaAsync(precio, fabricante);
+            errors = "";
+
+        }
+        catch (ApiException ex)
+        {
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "Error while connecting to the system";
+        }
+        StateHasChanged();
+
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        buscarHerramientas();
+
+        return base.OnInitializedAsync();
+    }
+
+    private void OfertaHerramientas()
+    {
+        navigation.NavigateTo("/rentals/createrental");
+    }
+}
