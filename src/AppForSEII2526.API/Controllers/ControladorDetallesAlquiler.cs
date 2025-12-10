@@ -23,7 +23,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<DetalleAlquilarDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(DetalleAlquilarDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetDetallesdeHerramientasAlquiladas(int id)
         {
