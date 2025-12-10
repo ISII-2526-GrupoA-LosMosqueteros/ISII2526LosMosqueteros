@@ -35,7 +35,7 @@ namespace AppForSEII2526.API.Controllers
                 .Include(c => c.CompraItem)
                     .ThenInclude(ci => ci.Herramienta)
                         .ThenInclude(h => h.Fabricante)
-                .Select(c => new DetallesCompraDTO(c.ApplicationUser.Name,c.ApplicationUser.Surname,c.DireccionEnvio,c.PrecioTotal,c.FechaCompra,c.CompraItem
+                .Select(c => new DetallesCompraDTO(c.Id,c.ApplicationUser.Name,c.ApplicationUser.Surname,c.DireccionEnvio,c.PrecioTotal,c.FechaCompra,c.CompraItem
                     .Select(ci => new CompraItemDTO(ci.Herramienta.Nombre,ci.Herramienta.Material,ci.Cantidad,ci.Descripcion,ci.Precio)).ToList<CompraItemDTO>()))
                 .FirstOrDefaultAsync();
             
@@ -179,6 +179,7 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var detallesCompra = new DetallesCompraDTO(
+                compra.Id,
                 compra.ApplicationUser.Name,
                 compra.ApplicationUser.Surname,
                 compra.DireccionEnvio,
