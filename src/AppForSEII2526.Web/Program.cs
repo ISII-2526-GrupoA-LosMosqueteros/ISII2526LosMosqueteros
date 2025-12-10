@@ -47,6 +47,8 @@ builder.Services.AddScoped<AlquilarStateContainer>();
 
 builder.Services.AddScoped<ComprarStateContainer>();
 
+builder.Services.AddScoped<OfertaStateContainer>();
+
 //adding an In-memory state container service
 builder.Services.AddScoped<ReparacionesStateContainer>();
 
