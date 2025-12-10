@@ -3,9 +3,9 @@ namespace AppForSEII2526.API.DTOs
 {
     public class DetallesCompraDTO
     {
-        public DetallesCompraDTO(string name, string surname, string direccionenvio, decimal precioTotal, DateTime fechaCompra, IList<CompraItemDTO> compraItem)
+        public DetallesCompraDTO(int id, string name, string surname, string direccionenvio, decimal precioTotal, DateTime fechaCompra, IList<CompraItemDTO> compraItem)
         {
-            
+            Id = id;
             Name = name;
             Surname = surname;
             DireccionEnvio = direccionenvio;
@@ -14,7 +14,8 @@ namespace AppForSEII2526.API.DTOs
             CompraItem = compraItem;
         }
 
-       
+        public int Id { get; set; }
+
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
