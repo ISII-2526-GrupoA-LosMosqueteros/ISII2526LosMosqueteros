@@ -21,7 +21,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<DetallesCompraDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(DetallesCompraDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetDetallesdeHerramientasCompradas(int id)
         {
