@@ -36,17 +36,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetalleAlquilarDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetalleAlquilarDTO"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetalleAlquilarDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetalleAlquilarDTO"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetalleAlquilarDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetalleAlquilarDTO"
+                  }
                 }
               }
             }
@@ -185,17 +194,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetallesCompraDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetallesCompraDTO"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetallesCompraDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetallesCompraDTO"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetallesCompraDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetallesCompraDTO"
+                  }
                 }
               }
             }
