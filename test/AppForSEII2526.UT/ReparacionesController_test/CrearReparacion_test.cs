@@ -55,7 +55,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "+34111111111");
-            reparacionFechaEntregaAnteriorAHoy.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
+            reparacionFechaEntregaAnteriorAHoy.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2, 1));
 
             var reparacionSinItems = new CreacionReparacionDTO(
                 DateTime.Today,
@@ -72,7 +72,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "+34111111111");
-            reparacionSinNombre.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
+            reparacionSinNombre.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2, 1));
 
             var reparacionSinApellido = new CreacionReparacionDTO(
                 DateTime.Today,
@@ -81,7 +81,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "+34111111111");
-            reparacionSinApellido.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
+            reparacionSinApellido.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2, 1));
 
             //nombre y apellidos rellenado, pero no existen en la base de datos
             var reparacionSinUsuario = new CreacionReparacionDTO(
@@ -91,7 +91,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "+34111111111");
-            reparacionSinUsuario.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
+            reparacionSinUsuario.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2, 1));
 
             var reparacionCantidadErronea = new CreacionReparacionDTO(
                 DateTime.Today,
@@ -100,7 +100,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "+34111111111");
-            reparacionCantidadErronea.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", -1));
+            reparacionCantidadErronea.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", -1, 1));
 
             var reparacionHerramientaErronea = new CreacionReparacionDTO(
                 DateTime.Today,
@@ -109,7 +109,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "+34111111111");
-            reparacionHerramientaErronea.RepararItem.Add(new RepararItemDTO(1, "Martillo", 10.3m, "Reparar motor", 2));
+            reparacionHerramientaErronea.RepararItem.Add(new RepararItemDTO(1, "Martillo", 10.3m, "Reparar motor", 2, 1));
 
             var reparacionTelefonoSinPrefijo = new CreacionReparacionDTO(
                 DateTime.Today,
@@ -118,7 +118,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 new List<RepararItemDTO>(),
                 TiposMetodoPago.Efectivo,
                 "111111111");
-            reparacionFechaEntregaAnteriorAHoy.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2));
+            reparacionFechaEntregaAnteriorAHoy.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Reparar motor", 2, 1));
 
             var allTest = new List<object[]>
             {
@@ -177,10 +177,10 @@ namespace AppForSEII2526.UT.ReparacionesController_test
 
 
             var creacionDeReparaciones = new CreacionReparacionDTO(desde, "Juan", "Perez", new List<RepararItemDTO>(), TiposMetodoPago.TarjetaCredito, "+34111111111");
-            creacionDeReparaciones.RepararItem.Add(new RepararItemDTO(500,"Sierra", 1200.0m, "Sierra para Madera", 2));
+            creacionDeReparaciones.RepararItem.Add(new RepararItemDTO(500,"Sierra", 1200.0m, "Sierra para Madera", 2, 1));
 
             var expectedReparacion = new DetalleRepararDTO(2, desde, hasta, 41.0m, "Juan", "Perez", new List<RepararItemDTO>());
-            expectedReparacion.RepararItem.Add(new RepararItemDTO(2, "Sierra", 41.0m, "Sierra para Madera", 2));
+            expectedReparacion.RepararItem.Add(new RepararItemDTO(2, "Sierra", 41.0m, "Sierra para Madera", 2, 1));
 
             //Act (Se ejecuta la acción a testear)
             var result = await controller.CrearReparacion(creacionDeReparaciones);

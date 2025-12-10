@@ -2,13 +2,14 @@
 {
     public class RepararItemDTO
     {
-        public RepararItemDTO(int id, string nombre, decimal precio, string? descripcion, int cantidad)
+        public RepararItemDTO(int id, string nombre, decimal precio, string? descripcion, int cantidad, int tiempoReparacion)
         {
             Id = id;
             Nombre = nombre;
             Precio = precio;
             Descripcion = descripcion;
             Cantidad = cantidad;
+            TiempoReparacion = tiempoReparacion;
         }
 
         public int Id { get; set; }
@@ -27,6 +28,8 @@
 
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad minima es 1")]
         public int Cantidad { get; set; }
+
+        public int TiempoReparacion { get; set; }
 
         public override bool Equals(object? obj)
         {

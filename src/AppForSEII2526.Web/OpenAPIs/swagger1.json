@@ -194,17 +194,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetallesCompraDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetallesCompraDTO"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetallesCompraDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetallesCompraDTO"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DetallesCompraDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DetallesCompraDTO"
+                  }
                 }
               }
             }
@@ -1470,6 +1479,10 @@
           "cantidad": {
             "maximum": 2147483647,
             "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "tiempoReparacion": {
             "type": "integer",
             "format": "int32"
           }
