@@ -40,6 +40,8 @@ public class RabbitMQLogger : ILogger, IDisposable
         _properties = _channel.CreateBasicProperties();
         _properties.Persistent = true;
         _properties.ContentType = "application/json";
+
+       
     }
 
     private static void ValidateConfiguration(RabbitMQLoggerConfiguration config)
@@ -88,9 +90,10 @@ public class RabbitMQLogger : ILogger, IDisposable
             var logJson = JsonConvert.SerializeObject(logEntry);
             var body = Encoding.UTF8.GetBytes(logJson);
 
+            var routingKey = $"log.{logEntry.LogLevel}";
             _channel.BasicPublish(
                 exchange: _config.Exchange,
-                routingKey: "",
+                routingKey: routingKey,
                 basicProperties: _properties,
                 body: body);
         }
