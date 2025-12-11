@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using System.Data.Common;
+using TodoApi.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,8 @@ builder.Services.AddSwaggerGen(options => {
 
 });
 
+builder.Logging.AddRabbitMQ(builder.Configuration.GetSection("RabbitMQ"));
+//”RabbitMQ” coincide con el nombre del bloque de propiedades en appsettings.json 
 
 var app = builder.Build();
 
