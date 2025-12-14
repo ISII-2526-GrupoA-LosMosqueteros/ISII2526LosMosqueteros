@@ -5,9 +5,9 @@
 @inject AppForHerramientasAPIClient pruebaClient;
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>¡Bienvenidos a ToolApp!</h1>
 
-Welcome to your new app.
+Disponemos herramientas de los siguientes fabricantes.
 
 <br>
 <br>
@@ -19,13 +19,18 @@ Welcome to your new app.
 }
 else foreach (var herramienta in _herramientas)
     {
-        @herramienta.Fabricante
+        if (!_fabricantes.Contains(@herramienta.Fabricante))
+        {
+            @herramienta.Fabricante;
+            _fabricantes.Add(@herramienta.Fabricante);
+        }
         <br>
     }
 
 @code{
     private ICollection<HerramientaParaRepararDTO> _herramientas;
-
+    //creamos una lista de strings
+    private List<string> _fabricantes = [""];
     //Se ejecutará al cargarse la página.
     protected override async Task OnInitializedAsync()
     {

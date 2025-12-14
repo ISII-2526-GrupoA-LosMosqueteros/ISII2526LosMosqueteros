@@ -119,7 +119,7 @@ namespace AppForSEII2526.UT.ControladorDetallesCompra_test
             var creaciondecompras = new CreacionCompraDTO("Juan", "Perez", "Av. España 21", TiposMetodoPago.TarjetaCredito, null, null, new List<CompraItemDTO>());
             creaciondecompras.CompraItems.Add(new CompraItemDTO("Destornillador", "Acero", 2, "Destornillador Estrella", 31.5m));
 
-            var expectedCompra = new DetallesCompraDTO("Juan", "Perez", "Av. España 21", 31.5m, DateTime.Today, new List<CompraItemDTO>());
+            var expectedCompra = new DetallesCompraDTO(1,"Juan", "Perez", "Av. España 21", 31.5m, DateTime.Today, new List<CompraItemDTO>());
             expectedCompra.CompraItem.Add(new CompraItemDTO("Destornillador", "Acero", 2, "Destornillador Estrella", 31.5m));
 
             //Act (Se ejecuta la acción a testear)

@@ -69,7 +69,7 @@ namespace AppForSEII2526.UT.ControladorDetallesCompra_test
 
             var controller = new ControladorDetallesCompra(_context, logger);
 
-            var expectedCompra = new DetallesCompraDTO("Juan", "Perez", "Av. España 21", 31.5m, DateTime.Today, new List<CompraItemDTO>());
+            var expectedCompra = new DetallesCompraDTO(1,"Juan", "Perez", "Av. España 21", 31.5m, DateTime.Today, new List<CompraItemDTO>());
             expectedCompra.CompraItem.Add(new CompraItemDTO("Destornillador", "Acero", 2, "", 15.75m));
 
             //Act

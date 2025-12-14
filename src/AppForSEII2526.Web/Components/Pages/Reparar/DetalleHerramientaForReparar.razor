@@ -1,0 +1,111 @@
+﻿
+@using AppForSEII2526.Web.API
+@page "/Reparar/DetalleHerramientaForReparar"
+@using Microsoft.AspNetCore.Authorization
+@inject AppForHerramientasAPIClient apiclient
+
+<h3>Detalle Reparacion Herramientas </h3>
+
+@if (reparacion==null)
+{
+    <p>@error</p>
+}
+else
+{
+    <table class="table table-borderless table-sm">
+        <tr>
+            <th>Nombre y Apellido</th>
+            <td id="NombreApellido">@reparacion.Name @reparacion.Surname</td>
+        </tr>
+
+        <tr>
+            <th>Fecha de entrega</th>
+            <td id="FechaEntrega">@reparacion.FechaEntrega.ToString("dd/MM/yyyy")</td>
+        </tr>
+
+        <tr>
+            <th>Fecha de recogida</th>
+            <td id="FechaRecogida">@reparacion.FechaRecogida.DateTime.ToString("dd/MM/yyyy")</td>
+        </tr>
+    </table>
+
+    <h4>Herramientas para Reparar</h4>
+
+    <table class="table" id="RentedMovies">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Descripcion</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (RepararItemDTO item in reparacion.RepararItem)
+            {
+                <tr id="RentalItem_@item.Nombre">
+                    <td>@item.Nombre</td>
+                    <td>@item.Precio</td>
+                    <td>@item.Cantidad</td>
+                    <td>@item.Descripcion</td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            @*colspan is used to state that TWO columns are collapsed*@
+            <th scope="row" colspan="1" class="text-end">Precio Total</th>
+            <td id="PrecioTotal">@reparacion.PrecioTotal €</td>
+        </tfoot>
+    </table>
+}
+
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int ReparacionID { get; set; }
+    private DetalleRepararDTO reparacion;
+    private string error = "";
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //we check the user is logged in
+        string userName = "";
+
+        if (authenticationState is not null)
+        {
+            var authState = await authenticationState;
+            var user = authState?.User;
+
+            //we retrieve the id of the user logged in
+            if (user is not null)
+            {
+                if (user.Identity is not null && user.Identity.IsAuthenticated && user.IsInRole("User"))
+                {
+                    userName = user.Identity.Name;
+                }
+
+            }
+        }
+
+        try
+        {
+            reparacion = await apiclient.GetDetalleRepararAsync(ReparacionID);
+        }
+        catch (ApiException exception)
+        {
+            reparacion = null;
+        }
+
+
+        if ((reparacion == null) || (reparacion.Name != userName))
+        {
+            error = $"Error! You are not authorized to see this rental or there is not a rental with id={ReparacionID}";
+        }
+    }
+}

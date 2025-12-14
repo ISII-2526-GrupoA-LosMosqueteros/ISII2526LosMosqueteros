@@ -1,0 +1,120 @@
+﻿@page "/compra/detallecompra"
+
+
+@using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
+@inject AppForHerramientasAPIClient apiclient
+
+<h3>Detalle de la Compra</h3>
+
+@*@attribute [Authorize]*@
+@if (compra==null){
+    <p>@error</p>
+}
+else{
+    <table class="table table-borderless table-sm">
+        <tr>
+            <th>Nombre y apellidos</th>
+            <td id="NameSurname">@compra.Name @compra.Surname</td>
+        </tr>
+        <tr>
+            <th>Dirección de envio</th>
+            <td id="DeliveryAddress">@compra.DireccionEnvio</td>
+        </tr>
+        <tr>
+            <th>Precio Total</th>
+            <td id="PaymentMethod">@compra.PrecioTotal €</td>
+        </tr>
+        <tr>
+            <th>Fecha Compra</th>
+            <td id="RentalDate">@compra.FechaCompra.ToString("dd/MM/yyyy hh:mm:ss")</td>
+        </tr>
+    </table>
+
+    <h4>Herramientas Compradas</h4>
+
+    <table class="table" id="RentedMovies">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Material</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CompraItemDTO item in compra.CompraItem)
+            {
+                <tr id="CompraItem_@item.Nombre">
+                    <td>@item.Nombre</td>
+                    <td>@item.Material</td>
+                    <td>@item.Cantidad</td>
+                    <td>@item.Descripcion</td>
+                    <td>@item.Precio €</td>
+                    
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            @*colspan is used to state that TWO columns are collapsed*@
+        <th scope="row" colspan="4" class="text-end">Precio Total:</th>
+        <td id="Precio Total">@compra.PrecioTotal €</td>
+        </tfoot>
+
+    </table>
+   
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int CompraID { get; set; }
+    private DetallesCompraDTO compra;
+    private string error = "";
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        /*
+        //we check the user is logged in
+        string userName = "";
+        if (authenticationState is not null)
+        {
+            var authState = await authenticationState;
+            var user = authState?.User;
+
+            //we retrieve the id of the user logged in
+            if (user is not null)
+            {
+                if (user.Identity is not null && user.Identity.IsAuthenticated && user.IsInRole("User"))
+                {
+                    userName = user.Identity.Name;
+                }
+            }
+        }
+        */
+        try
+        {
+            compra = await apiclient.GetDetallesdeHerramientasCompradasAsync(CompraID);
+        }
+        catch (ApiException exception)
+        {
+            error = $"ERROR API: {exception.StatusCode} - {exception.Message} - {exception.Response}";
+        }
+        }
+        /*
+        if ((compra == null) || (compra.Surname != userName)) //MIRAR
+        {
+            error = $"Error! You are not authorized to see this rental or there is not a rental with id={RentalID}";
+        }
+        */
+
+
+    }
+
+
+}
