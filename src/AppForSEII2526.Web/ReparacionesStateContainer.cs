@@ -10,6 +10,7 @@ namespace AppForSEII2526.Web
             RepararItem = new List<RepararItemDTO>()
         };
 
+
         public event Action? OnChange;
         private void NotifyStateChanged() => OnChange?.Invoke();
 
@@ -26,7 +27,8 @@ namespace AppForSEII2526.Web
                     Nombre = herramienta.Nombre,
                     Precio = herramienta.Precio, //precio reparacion
                     TiempoReparacion = herramienta.TiempoReparacion,
-                    Cantidad = 1
+                    Cantidad = 1,
+                    Descripcion = ""
                 }
             );
             ComputeTotalPrice();
@@ -34,7 +36,7 @@ namespace AppForSEII2526.Web
 
         private void ComputeTotalPrice()
         {
-            Reparacion.PrecioTotal = Reparacion.RepararItem.Sum(ri => ri.Precio);
+            Reparacion.PrecioTotal = Reparacion.RepararItem.Sum(ri => ri.Precio * ri.Cantidad);
         }
 
         //to delete herramientas from the list of selected herramienta

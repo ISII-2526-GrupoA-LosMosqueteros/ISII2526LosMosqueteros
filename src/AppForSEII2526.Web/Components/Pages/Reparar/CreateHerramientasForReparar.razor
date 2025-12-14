@@ -93,8 +93,8 @@
                     <tr id="HerramientaData_@item.Nombre">
                         <td>@item.Nombre</td>
                         <td>@item.TiempoReparacion</td>
-                        <td><InputText @bind-Value="item.Descripcion" class="form-control" id="@($"description_{item.Id}")" /></td>
-                        <td><InputNumber @bind-Value="item.Cantidad" class="form-control" id="@($"cantidad_{item.Id}")" /></td>
+                        <td><InputText @bind-Value="item.Descripcion" class="form-control" id="@($"description_{item.Nombre}")" /></td>
+                        <td><InputNumber @bind-Value="item.Cantidad" class="form-control" id="@($"cantidad_{item.Nombre}")" /></td>
                         <td>@item.Precio</td>
                     </tr>
                 }
