@@ -21,18 +21,18 @@
                         break;
                     case Category.SaveNot:
                         <button type="button" class="btn btn-primary" @onclick=@Ok id="Button_DialogOK">
-                            Save
+                           Guardar
                         </button>
                         <button type="button" class="btn btn-warning" @onclick="@Cancel" id="Button_DialogCancel">
-                            Don't Save
+                            No guardar
                         </button>
                         break;
                     case Category.DeleteNot:
                         <button type="button" class="btn btn-danger" @onclick=@Ok id="Button_DialogOK">
-                            Delete
+                            Borrar
                         </button>
                         <button type="button" class="btn btn-warning" @onclick="@Cancel" id="Button_DialogCancel">
-                            Don't Delete
+                            No borrar
                         </button>
                         break;
                 }
@@ -41,6 +41,7 @@
     </div>
 </div>
 @code {
+
     //this parameter will be used to show a title in the modal dialog
     [Parameter] public string Caption { get; set; }
 

@@ -1,85 +1,89 @@
-﻿@page "/compra/detallecompra"
+﻿@page "/alquiler/detallealquiler"
 
 
 @using AppForSEII2526.Web.API
 @using Microsoft.AspNetCore.Authorization
 @inject AppForHerramientasAPIClient apiclient
 
-<h3>Detalle de la Compra</h3>
+<h3>DetalleAlquiler</h3>
 
 @*@attribute [Authorize]*@
-@if (compra==null){
+
+@if (alquiler == null)
+{
     <p>@error</p>
 }
-else{
+
+else
+{
     <table class="table table-borderless table-sm">
         <tr>
-            <th>Nombre y apellidos</th>
-            <td id="NameSurname">@compra.Name @compra.Surname</td>
+            <th>Nombre y Apellido</th>
+            <td id="NombreUsuario">@alquiler.Nombre @alquiler.Apellidos</td>
         </tr>
         <tr>
-            <th>Dirección de envio</th>
-            <td id="DeliveryAddress">@compra.DireccionEnvio</td>
+            <th>Direccion de envio</th>
+            <td id="DireccionEnvio">@alquiler.DireccionEnvio</td>
         </tr>
         <tr>
-            <th>Precio Total</th>
-            <td id="PaymentMethod">@compra.PrecioTotal €</td>
+            <th>Fecha de alquiler</th>
+            <td id="FechaAlquiler">@alquiler.FechaAlquiler.ToString("dd/MM/yyyy hh:mm:ss")</td>
         </tr>
         <tr>
-            <th>Fecha Compra</th>
-            <td id="RentalDate">@compra.FechaCompra.ToString("dd/MM/yyyy hh:mm:ss")</td>
+            <th>Periodo de alquiler</th>
+            <td id="PeriodoAlquiler">@alquiler.FechaInicio.DateTime.ToString("dd/MM/yyyy") - @alquiler.FechaFin.DateTime.ToString("dd/MM/yyyy")</td>
         </tr>
     </table>
 
-    <h4>Herramientas Compradas</h4>
+    <h4>Herramientas Alquiladas</h4>
 
-    <table class="table" id="RentedMovies">
+    <table class="table" id="HerramientasAlquiladas">
         <thead>
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Material</th>
+                <th scope="col">Precio del alquiler</th>
                 <th scope="col">Cantidad</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Precio</th>
+
             </tr>
         </thead>
         <tbody>
-            @foreach (CompraItemDTO item in compra.CompraItem)
+            @foreach (AlquilarItemDTO item in alquiler.AlquilarItems)
             {
-                <tr id="CompraItem_@item.Nombre">
+                <tr id="RentalItem_@item.Id">
                     <td>@item.Nombre</td>
                     <td>@item.Material</td>
-                    <td>@item.Cantidad</td>
-                    <td>@item.Descripcion</td>
                     <td>@item.Precio €</td>
-                    
+                    <td>@item.Cantidad</td>
+                   
+
+
                 </tr>
             }
         </tbody>
         <tfoot>
             @*colspan is used to state that TWO columns are collapsed*@
-        <th scope="row" colspan="4" class="text-end">Precio Total:</th>
-        <td id="Precio Total">@compra.PrecioTotal €</td>
+        <th scope="row" colspan="2" class="text-end">Precio Total</th>
+        <td id="PrecioTotal">@alquiler.PrecioTotal €</td>
         </tfoot>
 
     </table>
-   
+
+@using AppForSEII2526.Web.API
 
 @code {
     [Parameter]
     [SupplyParameterFromQuery]
-    public int CompraID { get; set; }
-    private DetallesCompraDTO compra;
+    public int AlquilerID { get; set; }
+    private DetalleAlquilarDTO alquiler;
     private string error = "";
 
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
 
-
-
     protected override async Task OnInitializedAsync()
     {
-        /*
+
         //we check the user is logged in
         string userName = "";
         if (authenticationState is not null)
@@ -96,25 +100,22 @@ else{
                 }
             }
         }
-        */
+
         try
         {
-            compra = await apiclient.GetDetallesdeHerramientasCompradasAsync(CompraID);
+            alquiler = await apiclient.GetDetallesdeHerramientasAlquiladasAsync(AlquilerID);
         }
         catch (ApiException exception)
         {
-            error = $"ERROR API: {exception.StatusCode} - {exception.Message} - {exception.Response}";
+            alquiler = null;
         }
-        }
-        /*
-        if ((compra == null) || (compra.Surname != userName)) //MIRAR
+        if ((alquiler == null) || (alquiler.Nombre != userName))
         {
-            error = $"Error! You are not authorized to see this rental or there is not a rental with id={RentalID}";
+            error = $"¡Error! No tienes autorización para ver este alquiler o no hay ningún alquiler con id={AlquilerID}";
         }
-        */
 
 
     }
 
-
+}
 }

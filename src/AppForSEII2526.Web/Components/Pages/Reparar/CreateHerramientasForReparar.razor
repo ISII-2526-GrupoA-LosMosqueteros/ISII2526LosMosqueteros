@@ -20,7 +20,7 @@
         <p id="ErrorsShown">Errors: @messageError</p>
     </div>
 
-    <div class="row g-3">
+    <div class="row g-4">
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="reparacion.Name" class="form-control" id="Name" />
@@ -31,6 +31,12 @@
             <div class="form-floating mb-3">
                 <InputText @bind-Value="reparacion.Surname" class="form-control" id="Surname" />
                 <label for="Surname">Apellido</label>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="reparacion.Phone" class="form-control" id="Phone" />
+                <label for="Phone">Telefono</label>
             </div>
         </div>
         <div class="col-md">
@@ -65,7 +71,7 @@
     </div>
     <h4>Detalle Reparacion</h4>
     <p>
-        <b>Total price:</b> @TotalCost €
+        <b>Precio total:</b> @TotalCost €
         <button class="btn btn-outline-primary" type="button" @onclick="ModificarItemsReparar" id="ModificarHerramientas">
             Modificar herramientas
         </button>
@@ -76,9 +82,9 @@
                 <tr>
                     <th>Nombre</th>
                     <th>TiempoReparacion</th>
-                    <th>Precio</th>
                     <th>Descripcion</th>
                     <th>Cantidad</th>
+                    <th>Precio</th>
                 </tr>
             </thead>
             <tbody>
@@ -87,9 +93,9 @@
                     <tr id="HerramientaData_@item.Nombre">
                         <td>@item.Nombre</td>
                         <td>@item.TiempoReparacion</td>
-                        <td>@item.Precio</td>
                         <td><InputText @bind-Value="item.Descripcion" class="form-control" id="@($"description_{item.Id}")" /></td>
-                        <td><InputNumber @bind-Value="item.Cantidad" class="form-control" id="@($"description_{item.Id}")" /></td>
+                        <td><InputNumber @bind-Value="item.Cantidad" class="form-control" id="@($"cantidad_{item.Id}")" /></td>
+                        <td>@item.Precio</td>
                     </tr>
                 }
             </tbody>
@@ -117,8 +123,8 @@
     {
         get
         {
-            int days = (reparacion.FechaRecogida.DateTime - reparacion.FechaEntrega.DateTime).Days;
-            double price = reparacion.RepararItem.Sum(ri => ri.Precio * days);
+            double price = reparacion.RepararItem.Sum(ri => ri.Precio * ri.Cantidad);
+            reparacion.PrecioTotal = price;
             return Convert.ToDecimal(price);
         }
     }
@@ -160,10 +166,15 @@
                 catch (ApiException apiexception)
                 {
                     //we need to inform user that there was some other error while processing the request
-                    messageError = "Error while processing your request, please try again later!";
+                    messageError = "Error mientras se procesaba tu peticion, please try again later!";
                 }
             }
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        reparacion.FechaEntrega = DateTime.Now;
     }
 
 }
