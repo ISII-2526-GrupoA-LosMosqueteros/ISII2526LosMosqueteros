@@ -15,7 +15,7 @@ namespace AppForSEII2526.Web
             get
             {
                 int numeroDeDias = (Alquiler.FechaFin - Alquiler.FechaInicio).Days;
-                return Convert.ToDecimal(Alquiler.AlquilerItems.Sum(ri => ri.Precio * numeroDeDias));
+                return Convert.ToDecimal(Alquiler.AlquilerItems.Sum(ri => ri.Precio * numeroDeDias * ri.Cantidad));
             }
         }
 
