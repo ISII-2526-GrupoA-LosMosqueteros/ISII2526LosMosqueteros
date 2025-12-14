@@ -26,6 +26,7 @@ namespace AppForSEII2526.Web
                     Nombre = herramienta.Nombre,
                     Precio = herramienta.Precio, //precio reparacion
                     TiempoReparacion = herramienta.TiempoReparacion,
+                    Cantidad = 1
                 }
             );
             ComputeTotalPrice();
