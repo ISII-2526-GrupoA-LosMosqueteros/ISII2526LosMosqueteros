@@ -97,7 +97,7 @@ namespace AppForSEII2526.UT.ReparacionesController_test
                 "Perez",
                 new List<RepararItemDTO>()
             );
-            expectedReparacion.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Solo repara", 1));
+            expectedReparacion.RepararItem.Add(new RepararItemDTO(1, "Taladro", 10.3m, "Solo repara", 1, 1));
 
             //Act -> llamamos al metodo a testear
             //hacemos como tal la llamada y el await es para que la base de datos te conteste

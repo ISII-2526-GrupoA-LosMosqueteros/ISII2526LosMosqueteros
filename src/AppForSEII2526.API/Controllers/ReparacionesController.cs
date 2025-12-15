@@ -48,7 +48,8 @@ namespace AppForSEII2526.API.Controllers
                         ri.Herramienta.Nombre,
                         ri.Precio,
                         ri.Descripcion,
-                        ri.Cantidad)
+                        ri.Cantidad,
+                        ri.Herramienta.TiempoReparacion)
                     ).ToList<RepararItemDTO>()))
              .FirstOrDefaultAsync();
 
@@ -199,7 +200,8 @@ namespace AppForSEII2526.API.Controllers
                         ri.Herramienta.Nombre,
                         ri.Precio,
                         ri.Descripcion,
-                        ri.Cantidad)
+                        ri.Cantidad,
+                        ri.Herramienta.TiempoReparacion)
                     ).ToList()
                 );
 
