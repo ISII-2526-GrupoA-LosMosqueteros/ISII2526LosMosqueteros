@@ -30,8 +30,8 @@ namespace AppForSEII2526.Web
                     Nombre = herramienta.Nombre,
                     Precio = herramienta.Precio,
                     Material = herramienta.Material,
-                    //Cantidad = 1,
-                    //Descripcion = ""
+                    Cantidad = 1,
+                    Descripcion = ""
                 }
             );
         }
