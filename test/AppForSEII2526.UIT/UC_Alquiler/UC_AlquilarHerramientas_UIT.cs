@@ -169,7 +169,7 @@ namespace AppForSEII2526.UIT.UC_Alquiler
         [Theory]
         [MemberData(nameof(GetFechasInvalidas))]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void CU4_AF6_FechasIncorrectas(DateTime fechaInicio, DateTime fechaFin, string errorExpected)
+        public void CU4_AF6_FechaIncorrectaInicio(DateTime fechaInicio, DateTime fechaFin, string errorExpected)
         {
             // ARRANGE
             InitialStepsParaAlquilarHerramientas();
@@ -191,6 +191,33 @@ namespace AppForSEII2526.UIT.UC_Alquiler
             // ASSERT
             Assert.True(crearAlquiler_PO.ValidarErrores(errorExpected));
         }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void CU4_AF6_FechaIncorrectaFinal()
+        {
+            // ARRANGE
+            InitialStepsParaAlquilarHerramientas();
+            selectHerramientasParaAlquilar_PO.BuscarHerramientas(nombreHerramienta1, "");
+            Thread.Sleep(500);
+            selectHerramientasParaAlquilar_PO.AddHerramientaParaCarritoAlquiler(idHerramienta1);
+            selectHerramientasParaAlquilar_PO.PulsarBotonAlquilar();
+
+            crearAlquiler_PO.CamposObligatorios("Carlos", "Gomez", "Calle Prueba");
+
+            // ACT
+            crearAlquiler_PO.EstablecerFechaInicio(DateTime.Now.AddDays(1));
+            crearAlquiler_PO.EstablecerFechaFin(DateTime.Now);
+            crearAlquiler_PO.ClickBotonAlquilarFinal();
+
+            Thread.Sleep(500);
+
+            // ASSERT
+            // Como la fecha final es anterior a la de inicio, el precio total no se calcula y se muestra el error de este campo 
+            Assert.True(crearAlquiler_PO.ValidarErrores("The field PrecioTotal must be between 0,5 and 100")); 
+            
+        }
+
 
     }
 } 
