@@ -18,14 +18,14 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
 
 
         private const string nombreHerramienta1 = "Destornillador";
-        private const string nombreHerramienta2 = "Tuerca";
+        private const string nombreHerramienta2 = "Tornillo";
         private const int idHerramienta1 = 1;
         private const string materialHerramienta1 = "Acero";
         private const string fabricanteHerramienta1 = "Wurt";
-        private const string fabricanteHerramienta2 = "Bosch";
+        private const string fabricanteHerramienta2 = "Phillips";
         private const decimal precioHerramienta1decimal = 12.5m;
-        private const int idHerramienta2 = 2;
-        private const decimal precioHerramienta2decimal = 0.10m;
+        private const int idHerramienta2 = 3;
+        private const decimal precioHerramienta2decimal = 1.15m;
         private const int porcentaje = 50;
 
 
@@ -52,8 +52,8 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
 
         
         [Theory]
-        [InlineData("12.5", "Wurt", "1", "Destornillador", "Acero", "Wurt", "12,5")]
-        [InlineData("0.2", "", "2", "Tuerca", "Acero", "Bosch", "0.1")]
+        [InlineData("12,5", "Wurt", "1", "Destornillador", "Acero", "Wurt", "12,5")]
+        [InlineData("1,15", "", "3", "Tornillo", "Acero", "Phillips", "1,15")]
         [InlineData("", "Wurt", "1", "Destornillador", "Acero", "Wurt", "12,5")]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC3_2_3_AF0_filteringbyPrecioandFabricante(
@@ -200,7 +200,6 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
             //Assert
             var expectedHerramientas = new List<string[]>
             {
-                // Columnas de texto en Crear Oferta: Nombre, Material, Precio (12.50)
                 new string[] { nombreHerramienta1, materialHerramienta1, precioHerramienta1decimal.ToString("0.0") }
             };
 
@@ -246,14 +245,14 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
         //-------------------------------------------------- PRUEBAS SELECT, POST Y DETAILS ------------------------------------------------------------
 
 
-        [Theory]
-        [InlineData(1, 10, 25)]
+        [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC3_1_2_3_4_5_6_7_FlujoBásico(
-            int diasFechaInicio,
-            int diasFechaFin,
-            int porcentaje)
+        public void UC3_1_2_3_4_5_6_7_FlujoBásico()
         {
+            int diasFechaInicio = 1;
+            int diasFechaFin = 10;
+            int porcentaje = 25;
+
             //Arrange
             InitialStepsForOfertarHerramientas();
             _selectHerramientasParaOfertaPO.BuscarHerramientas("", "");
@@ -278,15 +277,9 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
             Thread.Sleep(500);
 
             //Assert
-            Assert.True(_detalleOfertaPO.CheckOfertaDetail(
-                fechaInicio,
-                fechaFin,
-                fechaOferta,
-                "TarjetaCredito",
-                "Socios",
-                1
-            ));
-
+            Assert.True(_detalleOfertaPO.CheckOfertaDetail(fechaInicio, fechaFin, fechaOferta, "TarjetaCredito", "Socios", 1 ));
         }
+
+    
     }
 }
