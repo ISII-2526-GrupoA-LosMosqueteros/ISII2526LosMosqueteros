@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestPlatform.Utilities;
+﻿using AppForSEII2526.UIT.CU_ComprarHerramientas;
+using AppForSEII2526.UIT.Shared;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using AppForSEII2526.UIT.Shared;
-using System.Runtime.CompilerServices;
 
 namespace AppForSEII2526.UIT.CU_RepararHerramientas
 {
@@ -13,6 +14,7 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
     {
         private SelectHerramientasForReparacion_PO _selectHerramientas;
         private CreateHerramientasForReparacion_PO _createHerramientas;
+        private DetailHerramientasForReparacion_PO _detailHerramientas;
 
         private const int herramientaId1 = 1;
         private const string herramientaNombre1 = "Destornillador";
@@ -23,6 +25,7 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
         private const string herramientaPrecio1 = "12,5 €";
         private const decimal herramientaPrecio1D = 12.5m;
         private const string descripcionHerr1 = "Mango roto";
+        private const int herramientaCantidad1 = 2;
 
         private const string herramientaNombre2 = "Llave Inglesa";
         private const string herramientaMaterial2 = "Acero";
@@ -59,6 +62,7 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
         {
             _selectHerramientas = new SelectHerramientasForReparacion_PO(_driver, _output);
             _createHerramientas = new CreateHerramientasForReparacion_PO(_driver, _output);
+            _detailHerramientas = new DetailHerramientasForReparacion_PO(_driver, _output);
         }
 
         private void InitialStepsForRepararHerramientas()
@@ -287,24 +291,23 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
             Thread.Sleep(1000);
             _createHerramientas.RellenarDescripcionHerramientas(descripcionHerr1, herramientaNombre1);
             Thread.Sleep(1000);
-            _createHerramientas.asignarCantidad(2, herramientaNombre1);
+            _createHerramientas.asignarCantidad(herramientaCantidad1, herramientaNombre1);
             _createHerramientas.ClickReparaTusHerramientas();
             Thread.Sleep(500);
             _createHerramientas.confirmarDialogo();
             Thread.Sleep(500);
 
+            // Assert
+            string precioFinal1 = (herramientaPrecio1D * herramientaCantidad1).ToString("0.##"); //mantiene los decimales signficativos
+            //_output.WriteLine($"nuevo precioFinal1 (ToString()): '{precioFinal1}'");
+            Assert.True(_detailHerramientas.ComprobarDetallesReparacion(nombreU, apellidoU, DateTime.Today, DateTime.Today.AddDays(herramientaTiempoReparacion1I), precioFinal1 + "€"));
+            var expectedDetallesHerramienta = new List<string[]> { new string[] { herramientaNombre1, precioFinal1, herramientaCantidad1.ToString(), descripcionHerr1 }, };
+            Assert.True(_detailHerramientas.ComprobarTablaHerramientasReparadas(expectedDetallesHerramienta));
+
 
 
         }
 
-        /*
-        void IDisposable.Dispose()
-        {
-            //To close and release all the resources allocated by the web driver
-            _driver.Close();
-            _driver.Dispose();
-            GC.SuppressFinalize(this);
-        }
-        */
+
     }
 }

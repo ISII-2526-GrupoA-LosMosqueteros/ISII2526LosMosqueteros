@@ -75,7 +75,7 @@
         </div>
     </div>
     <p>
-        <b>Precio Total:</b> @CosteTotal €
+        <b>Precio Total:</b> <span id="precioTotalCalculado">@CosteTotal</span> €
         <button class="btn btn-outline-primary" type="submit" @onclick="ModificarAlquilarItems" id="ModificarHerramientas">
             Modificar herramientas
         </button>
@@ -182,6 +182,16 @@ alquilarState.Alquiler;
 
         if (authenticationState is not null)
         {
+            if (alquiler.AlquilerItems != null)
+            {
+                foreach (var item in alquiler.AlquilerItems)
+                {
+                    if (item.Cantidad <= 0)
+                    {
+                        item.Cantidad = 1;
+                    }
+                }
+            }
             alquiler.FechaInicio = DateTimeOffset.Now;
             alquiler.FechaFin = DateTimeOffset.Now;
             var authState = await authenticationState;
@@ -194,10 +204,10 @@ alquilarState.Alquiler;
                     alquiler.Name = user.Identity.Name;
                 }
             }
+            
             alquiler.Name = alquiler.Name == null ? "" : alquiler.Name;
             alquiler.Surname = alquiler.Surname == null ? "" : alquiler.Surname;
             alquiler.DireccionEnvio = alquiler.DireccionEnvio == null ? "" : alquiler.DireccionEnvio;
-
         }
     }
 
