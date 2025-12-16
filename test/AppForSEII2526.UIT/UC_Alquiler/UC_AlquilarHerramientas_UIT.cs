@@ -11,6 +11,7 @@ namespace AppForSEII2526.UIT.UC_Alquiler
     {
         private SelectHerramientasParaAlquilar_PO selectHerramientasParaAlquilar_PO;
         private CrearAlquiler_PO crearAlquiler_PO;
+        private DetalleAlquiler_PO detalleAlquiler_PO;
         private const string idHerramienta1 = "1";
         private const string nombreHerramienta1 = "Destornillador";
         private const string materialHerramienta1 = "Acero";
@@ -27,6 +28,7 @@ namespace AppForSEII2526.UIT.UC_Alquiler
         {
             selectHerramientasParaAlquilar_PO = new SelectHerramientasParaAlquilar_PO(_driver, _output);
             crearAlquiler_PO = new CrearAlquiler_PO(_driver, _output);
+            detalleAlquiler_PO = new DetalleAlquiler_PO(_driver, _output);
         }
 
         private void InitialStepsParaAlquilarHerramientas()
@@ -216,6 +218,60 @@ namespace AppForSEII2526.UIT.UC_Alquiler
             // Como la fecha final es anterior a la de inicio, el precio total no se calcula y se muestra el error de este campo 
             Assert.True(crearAlquiler_PO.ValidarErrores("The field PrecioTotal must be between 0,5 and 100")); 
             
+        }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_FlujoBasico()
+        {
+            // Arrange
+            InitialStepsParaAlquilarHerramientas();
+            Thread.Sleep(2000);
+
+            string nombreCliente = "Carlos";
+            string apellidoCliente = "Gomez";
+            string direccionCliente = "Calle Tuerca";
+
+            DateTime fechaInicio = DateTime.Now.AddDays(1);
+            DateTime fechaFin = DateTime.Now.AddDays(2);
+
+            selectHerramientasParaAlquilar_PO.BuscarHerramientas(nombreHerramienta1, "");
+            Thread.Sleep(1000);
+            selectHerramientasParaAlquilar_PO.AddHerramientaParaCarritoAlquiler(idHerramienta1);
+            Thread.Sleep(500);
+
+            selectHerramientasParaAlquilar_PO.BuscarHerramientas(nombreHerramienta2, "");
+            Thread.Sleep(1000);
+            selectHerramientasParaAlquilar_PO.AddHerramientaParaCarritoAlquiler(idHerramienta2);
+            Thread.Sleep(500);
+
+            selectHerramientasParaAlquilar_PO.PulsarBotonAlquilar();
+            Thread.Sleep(2000);
+
+            crearAlquiler_PO.CamposObligatorios(nombreCliente, apellidoCliente, direccionCliente);
+            Thread.Sleep(1000);
+
+            crearAlquiler_PO.EstablecerFechaInicio(fechaInicio);
+            crearAlquiler_PO.EstablecerFechaFin(fechaFin);
+            Thread.Sleep(1000);
+
+            crearAlquiler_PO.ClickBotonAlquilarFinal();
+            Thread.Sleep(1000);
+            crearAlquiler_PO.ClickConfirmarEnDialogo();
+            Thread.Sleep(2000); 
+
+            // Assert
+
+            
+            Assert.True(detalleAlquiler_PO.CheckDetallesAlquiler(nombreCliente, apellidoCliente, direccionCliente, "45", fechaInicio, fechaFin));
+
+            var expectedDetallesHerramienta = new List<string[]>
+            {
+                new string[] { nombreHerramienta1, materialHerramienta1, "25 €", "1" },
+                new string[] { nombreHerramienta2, materialHerramienta2, "20 €", "1" }
+            };
+
+            Assert.True(detalleAlquiler_PO.CheckListaHerramientasAlquiladas(expectedDetallesHerramienta));
         }
 
 
