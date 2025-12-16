@@ -41,6 +41,7 @@ namespace AppForSEII2526.UIT.CU_ComprarHerramientas
         [Theory]
         [InlineData(herramienta3,fabricante3,material1,precio3,1.3,"")]
         [InlineData(herramienta2, fabricante1, material2, precio2, null ,"Plastico")]
+        [InlineData(herramienta2, fabricante1, material2, precio2, 12, "Plastico")]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC1_2_AF1_filteringByPrecioYMaterial(string nombreHerramienta, string fabricanteHerramienta, string materialHerramienta, string precioHerramienta, decimal filtroPrecio, string filtroMaterial)
         {
