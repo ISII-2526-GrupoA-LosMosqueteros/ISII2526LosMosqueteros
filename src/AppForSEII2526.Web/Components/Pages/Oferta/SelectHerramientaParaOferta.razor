@@ -18,13 +18,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Precio</span>
-                        <input type="text" id="inputTitle" @bind=precio class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="basic-addon1">
+                        <input type="text" id="inputprecio" @bind=precio class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Fabricante</span>
-                        <input type="text" id="inputGenre" @bind=fabricante class="form-control" placeholder="Fabricante" aria-label="Fabricante" aria-describedby="basic-addon1">
+                        <input type="text" id="inputfabricante" @bind=fabricante class="form-control" placeholder="Fabricante" aria-label="Fabricante" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
@@ -89,7 +89,7 @@
         @foreach (OfertaItemDTO item in oferta.OfertaItem)
         {
             <div class="row">
-                <button type="button" class="btn btn-light" id="removeMovie_@item.Id" @onclick="@(() => RemoveOfertaItemTo(item))">x @item.Nombre - @item.Precio</button>
+                <button type="button" class="btn btn-light" id="removeMovie_@item.Nombre" @onclick="@(() => RemoveOfertaItemTo(item))">x @item.Nombre - @item.Precio</button>
             </div>
         }
         <div class="row">
