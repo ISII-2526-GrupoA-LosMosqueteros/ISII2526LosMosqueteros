@@ -1443,7 +1443,7 @@
           },
           "precio": {
             "maximum": 1000,
-            "minimum": 0.5,
+            "minimum": 0,
             "type": "number",
             "format": "currency"
           },
