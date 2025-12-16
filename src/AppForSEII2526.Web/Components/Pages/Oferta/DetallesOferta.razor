@@ -1,0 +1,152 @@
+﻿@page "/Oferta/DetallesOferta"
+
+@using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
+@inject AppForHerramientasAPIClient apiclient
+
+<h3>Detalle de la Compra</h3>
+
+@*@attribute [Authorize]*@
+@if (oferta == null)
+{
+    <p>@error</p>
+}
+else
+{
+    <table class="table table-borderless table-sm">
+        <tr>
+            <th>ID Oferta</th>
+            <td id="IdOferta">@oferta.Id</td>
+        </tr>
+        <tr>
+            <th>Fecha de Inicio</th>
+            <td id="FechaInicio">@oferta.FechaInicio.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <th>Fecha Final</th>
+            <td id="FechaFinal">@oferta.FechaFinal.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <th>Fecha de la Oferta</th>
+            <td id="FechaOferta">@oferta.FechaOferta.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <th>Método de Pago</th>
+            <td id="MetodoPago">@oferta.TiposMetodoPago</td>
+        </tr>
+        <tr>
+            <th>Dirigida a</th>
+            <td id="TipoDirigida">@oferta.TiposDirigdaOferta</td>
+        </tr>
+        <tr>
+            <th>Items en la Oferta</th>
+            <td id="ItemsCount">@oferta.OfertaItem.Count</td>
+        </tr>
+    </table>
+
+    <h4>Herramientas ofertadas</h4>
+
+    <table class="table table-striped table-hover" id="HerramientasOfertadas">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Herramienta</th>
+                <th scope="col">Material</th>
+                <th scope="col">Fabricante</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Porcentaje</th>
+                <th scope="col">Precio Final (€)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in oferta.OfertaItem)
+            {
+                <tr id="OfertaItem_@item.Id">
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Material</td>
+                    <td>@item.Fabricante</td>
+                    <td>@item.Precio.ToString("0.00") €</td>
+                    <td>@item.Porcentaje %</td>
+                    <td>@item.PrecioFinal.ToString("0.00") €</td>
+                </tr>
+            }
+        </tbody>
+
+        <tfoot class="table-light">
+            <tr>
+                <th scope="row" colspan="6" class="text-end">Precio Total de la Oferta</th>
+                <td id="TotalPrice">
+                    @CalcularPrecioFinal(oferta).ToString("0.00") €
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int ofertaID { get; set; }
+    private DetalleOfertaDTO oferta;
+    private string error = "";
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    protected float CalcularPrecioFinal(DetalleOfertaDTO oferta)
+    {
+        float total = 0;
+
+        if (oferta?.OfertaItem != null)
+        {
+            foreach (var item in oferta.OfertaItem)
+            {
+                total += (float)item.PrecioFinal;
+            }
+        }
+        return total;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        /*
+        //we check the user is logged in
+        string userName = "";
+        if (authenticationState is not null)
+        {
+            var authState = await authenticationState;
+            var user = authState?.User;
+
+            //we retrieve the id of the user logged in
+            if (user is not null)
+            {
+                if (user.Identity is not null && user.Identity.IsAuthenticated && user.IsInRole("User"))
+                {
+                    userName = user.Identity.Name;
+                }
+            }
+        }
+        */
+        try
+        {
+            oferta = await apiclient.GetDetallesdeOfertasCreadasAsync(ofertaID);
+        }
+        catch (ApiException exception)
+        {
+            error = $"ERROR API: {exception.StatusCode} - {exception.Message} - {exception.Response}";
+        }
+    }
+    /*
+    if ((compra == null) || (compra.Surname != userName)) //MIRAR
+    {
+        error = $"Error! You are not authorized to see this rental or there is not a rental with id={RentalID}";
+    }
+    */
+}
+
+
+}
