@@ -46,9 +46,10 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
+                                    <th>Material</th>
                                     <th>Fabricante</th>
-                                    <th>Precio para alquilar</th>
-                                    <th>Reparar</th>
+                                    <th>Días Reparación</th>
+                                    <th>Precio</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,8 +57,10 @@
                                 {
                                     <tr id="HerramientaData_@herramienta.Nombre">
                                         <td>@herramienta.Nombre</td>
+                                        <td>@herramienta.Material</td>
                                         <td>@herramienta.Fabricante</td>
-                                        <td>@herramienta.Precio</td>
+                                        <td>@herramienta.TiempoReparacion</td>
+                                        <td>@herramienta.Precio €</td>
                                         <td>
                                             <button class="btn btn-outline-secondary" id="herramientaToReparar_@herramienta.Nombre" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
                                         </td>
@@ -81,7 +84,7 @@
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseHerramientaButton" @onclick=@RepararHerramientas>Reparar Herramientas</button>
+                <button type="button" class="btn btn-primary" id="repararHerramientaButton" @onclick=@RepararHerramientas>Reparar Herramientas</button>
             </div>
         </div>
 

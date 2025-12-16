@@ -18,7 +18,7 @@
         public string Nombre { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
-        [Range(0.5, 1000, ErrorMessage = "Minimo precio es 0.5 y el maximo 1000")]
+        [Range(0, 1000, ErrorMessage = "Minimo precio es 0 y el maximo 1000")]
         [Display(Name = "Precio para reparar")]
         [Precision(10, 2)]
         public decimal Precio { get; set; }

@@ -63,7 +63,7 @@
         <div class="col-md">
             <div class="form-floating">
                 @*this button will be used to ask the user if he want to proceed to reparar the herramienta*@
-                <button class="btn btn-primary" type="submit" id="Submit">
+                <button class="btn btn-primary" type="submit" id="ProcederRepararButton">
                     Repara tus herramientas
                 </button>
             </div>
@@ -71,13 +71,13 @@
     </div>
     <h4>Detalle Reparacion</h4>
     <p>
-        <b>Precio total:</b> @TotalCost €
-        <button class="btn btn-outline-primary" type="button" @onclick="ModificarItemsReparar" id="ModificarHerramientas">
+        <b>Precio total: </b> @TotalCost €
+        <button class="btn btn-outline-primary" type="button" @onclick="ModificarItemsReparar" id="ModificarHerramientasButton">
             Modificar herramientas
         </button>
     </p>
     <div class="mh-100 table-responsive">
-        <table class="table table-condensed table-hover" id="TableOfRentalItems">
+        <table class="table table-condensed table-hover" id="TablaHerramientasReparacionItems">
             <thead>
                 <tr>
                     <th>Nombre</th>
