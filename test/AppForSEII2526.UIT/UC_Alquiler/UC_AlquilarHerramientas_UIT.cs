@@ -80,13 +80,10 @@ namespace AppForSEII2526.UIT.UC_Alquiler
             selectHerramientasParaAlquilar_PO.BuscarHerramientas(nombreHerramienta2, "");
             Thread.Sleep(500);
             selectHerramientasParaAlquilar_PO.AddHerramientaParaCarritoAlquiler(idHerramienta2);
-
-            // ACT 
-            selectHerramientasParaAlquilar_PO.RemoveHerramientaDeCarritoAlquiler(idHerramienta1);
             Thread.Sleep(500);
 
             // ASSERT
-            Assert.False(selectHerramientasParaAlquilar_PO.EstaLaHerramientaEnElCarrito(idHerramienta1));
+            Assert.True(selectHerramientasParaAlquilar_PO.EstaLaHerramientaEnElCarrito(idHerramienta1));
             Assert.True(selectHerramientasParaAlquilar_PO.EstaLaHerramientaEnElCarrito(idHerramienta2));
         }
 
@@ -272,6 +269,61 @@ namespace AppForSEII2526.UIT.UC_Alquiler
             };
 
             Assert.True(detalleAlquiler_PO.CheckListaHerramientasAlquiladas(expectedDetallesHerramienta));
+        }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void BF_AF0_AF0_AF2()
+        {
+            // ARRANGE
+            InitialStepsParaAlquilarHerramientas();
+            Thread.Sleep(2000);
+
+            string nombreCliente = "Carlos";
+            string apellidoCliente = "Gomez";
+            string direccionCliente = "Calle Examen";
+
+            DateTime fechaInicio = DateTime.Now.AddDays(1);
+            DateTime fechaFin = DateTime.Now.AddDays(2);
+            // ACT 
+            selectHerramientasParaAlquilar_PO.BuscarHerramientas(nombreHerramienta1, "");
+            Thread.Sleep(500);
+            selectHerramientasParaAlquilar_PO.AddHerramientaParaCarritoAlquiler(idHerramienta1);
+
+            selectHerramientasParaAlquilar_PO.BuscarHerramientas("", materialHerramienta2);
+            Thread.Sleep(500);
+            selectHerramientasParaAlquilar_PO.AddHerramientaParaCarritoAlquiler(idHerramienta2);
+
+            selectHerramientasParaAlquilar_PO.RemoveHerramientaDeCarritoAlquiler(idHerramienta1);
+            Thread.Sleep(500);
+
+            selectHerramientasParaAlquilar_PO.PulsarBotonAlquilar();
+            Thread.Sleep(2000);
+
+            crearAlquiler_PO.CamposObligatorios(nombreCliente, apellidoCliente, direccionCliente);
+            Thread.Sleep(1000);
+
+            crearAlquiler_PO.EstablecerFechaInicio(fechaInicio);
+            crearAlquiler_PO.EstablecerFechaFin(fechaFin);
+            Thread.Sleep(1000);
+
+            crearAlquiler_PO.ClickBotonAlquilarFinal();
+            Thread.Sleep(1000);
+            crearAlquiler_PO.ClickConfirmarEnDialogo();
+            Thread.Sleep(2000);
+
+
+
+            // ASSERT
+            Assert.True(detalleAlquiler_PO.CheckDetallesAlquiler(nombreCliente, apellidoCliente, direccionCliente, "20", fechaInicio, fechaFin));
+
+            var expectedDetallesHerramienta = new List<string[]>
+            {
+                new string[] { nombreHerramienta2, materialHerramienta2, "20 €", "1" }
+            };
+
+            Assert.True(detalleAlquiler_PO.CheckListaHerramientasAlquiladas(expectedDetallesHerramienta));
+
         }
 
 
