@@ -21,6 +21,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
         private const string nombreHerramienta2 = "Tornillo";
         private const int idHerramienta1 = 1;
         private const string materialHerramienta1 = "Acero";
+        private const string materialHerramienta2 = "Acero";
         private const string fabricanteHerramienta1 = "Wurt";
         private const string fabricanteHerramienta2 = "Phillips";
         private const decimal precioHerramienta1decimal = 12.5m;
@@ -280,6 +281,63 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramienta
             Assert.True(_detalleOfertaPO.CheckOfertaDetail(fechaInicio, fechaFin, fechaOferta, "TarjetaCredito", "Socios", 1 ));
         }
 
-    
+        //-------------------------------------------------- PRUEBAS SELECT, POST Y DETAILS EXAMEN SPRINT 3 ------------------------------------------------------------
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC3_1_2_3_4_5_6_7_AF0_AF0_AF2_EXAMEN()
+        {
+            string filtroprecio = precioHerramienta2decimal.ToString();
+            string filtrofabricante = fabricanteHerramienta1;
+            int diasFechaInicio = 1;
+            int diasFechaFin = 10;
+            int porcentaje = 25;
+            DateTime fechaInicio = DateTime.Today.AddDays(diasFechaInicio);
+            DateTime fechaFin = DateTime.Today.AddDays(diasFechaFin);
+            DateTime fechaOferta = DateTime.Today;
+            decimal preciofinal = precioHerramienta2decimal - (precioHerramienta2decimal * (porcentaje/100m));
+
+            var expectedHerramientas = new List<string[]>
+            {
+                new string[] { idHerramienta2.ToString(),nombreHerramienta2,materialHerramienta2,fabricanteHerramienta2,precioHerramienta2decimal.ToString() + " €",
+                    porcentaje.ToString() + " %", preciofinal.ToString("0.00") + " €" }
+            };
+
+            InitialStepsForOfertarHerramientas();
+
+            _selectHerramientasParaOfertaPO.BuscarHerramientas("", "");
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.BuscarHerramientas("", filtrofabricante);
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.AddHerramientaToCarrito(nombreHerramienta1);
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.BuscarHerramientas("", "");
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.BuscarHerramientas(filtroprecio, "");
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.AddHerramientaToCarrito(nombreHerramienta2);
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.ClickOfertarHerramientas();
+            Thread.Sleep(500);
+
+            _crearOfertaPO.PressModifyHerramientasButton();
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.BorrarHerramientaDelCarrito(nombreHerramienta1);
+            Thread.Sleep(500);
+            _selectHerramientasParaOfertaPO.ClickOfertarHerramientas();
+            Thread.Sleep(500);
+
+
+            _crearOfertaPO.RellenarFormularioOferta(fechaInicio, fechaFin);
+            Thread.Sleep(500);
+            _crearOfertaPO.RellenarPorcentajeOferta(idHerramienta2, porcentaje);
+            Thread.Sleep(500);
+            _crearOfertaPO.ClickSubmitButton();
+            Thread.Sleep(500);
+            _crearOfertaPO.ConfirmDialog();
+            Thread.Sleep(500);
+
+            Assert.True(_detalleOfertaPO.CheckOfertaDetail(fechaInicio, fechaFin, fechaOferta, "TarjetaCredito", "Socios", 1));
+            Assert.True(_detalleOfertaPO.CheckListaDeHerramientasOfertadas(expectedHerramientas));
+        }
     }
 }
