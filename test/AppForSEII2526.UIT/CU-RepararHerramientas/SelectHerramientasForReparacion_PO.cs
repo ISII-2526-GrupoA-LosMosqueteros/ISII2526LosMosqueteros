@@ -36,6 +36,12 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
         {
             //wait for the webelement to be clickable
             WaitForBeingClickable(_inputNombreBy);
+
+            //limpiamos los filtros para que no interfiera con varias búsquedas
+            _herramientaTiempoReparacion().Clear();
+            _herramientaNombre().Clear();
+
+
             _herramientaNombre().SendKeys(filtroNombre);
             
 
@@ -43,8 +49,6 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
             _herramientaTiempoReparacion().SendKeys(filtroTiempoReparacion);
 
             _buscarHerramientasButton().Click();
-            //we wait for 2 seconds (2000 milliseconds) till the table is reloaded as we have to wait for the API service to be called
-            System.Threading.Thread.Sleep(2000);
         }
 
 

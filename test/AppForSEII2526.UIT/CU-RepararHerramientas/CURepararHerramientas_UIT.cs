@@ -308,6 +308,49 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
 
         }
 
+        //EXAMEN
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC2_BF_AF0_AF0_AF2()
+        {
+            //Arrange
+            InitialStepsForRepararHerramientas();
+            //Herramientas esperadas para el 
+            //Act
 
+            _selectHerramientas.FilterHerramientas(herramientaNombre2, ""); //AF0
+            Thread.Sleep(500); // Esperar a que devuelva
+            _selectHerramientas.AddHerramientaAlCarrito(herramientaNombre2);
+            Thread.Sleep(500);
+            _selectHerramientas.FilterHerramientas("", herramientaTiempoReparacion1); //AF0
+            Thread.Sleep(500);
+            _selectHerramientas.AddHerramientaAlCarrito(herramientaNombre1);
+            Thread.Sleep(500);
+            _selectHerramientas.ClickRepararHerramientas();
+            Thread.Sleep(500);
+            _createHerramientas.ClickModificarHerramientas(); //AF2
+            Thread.Sleep(500);
+            _selectHerramientas.RemoveHerramientaDelCarrito(herramientaNombre2); //AF2
+            Thread.Sleep(500);
+            _selectHerramientas.ClickRepararHerramientas();
+            Thread.Sleep(500);
+            _createHerramientas.InputUsuario(nombreU, apellidoU, telefonoU, DateTime.Today);
+            Thread.Sleep(1000);
+            _createHerramientas.RellenarDescripcionHerramientas(descripcionHerr1, herramientaNombre1);
+            Thread.Sleep(1000);
+            _createHerramientas.asignarCantidad(herramientaCantidad1, herramientaNombre1);
+            _createHerramientas.ClickReparaTusHerramientas();
+            Thread.Sleep(500);
+            _createHerramientas.confirmarDialogo();
+            Thread.Sleep(500);
+
+            // Assert
+            string precioFinal1 = (herramientaPrecio1D * herramientaCantidad1).ToString("0.##"); //mantiene los decimales signficativos
+            //_output.WriteLine($"nuevo precioFinal1 (ToString()): '{precioFinal1}'");
+            Assert.True(_detailHerramientas.ComprobarDetallesReparacion(nombreU, apellidoU, DateTime.Today, DateTime.Today.AddDays(herramientaTiempoReparacion1I), precioFinal1 + "€"));
+            var expectedDetallesHerramienta = new List<string[]> { new string[] { herramientaNombre1, precioFinal1, herramientaCantidad1.ToString(), descripcionHerr1 }, };
+            Assert.True(_detailHerramientas.ComprobarTablaHerramientasReparadas(expectedDetallesHerramienta));
+
+        }
     }
 }
