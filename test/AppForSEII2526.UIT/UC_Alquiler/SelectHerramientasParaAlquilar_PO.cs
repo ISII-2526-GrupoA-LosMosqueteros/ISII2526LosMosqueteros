@@ -53,6 +53,7 @@ namespace AppForSEII2526.UIT.UC_Alquiler
             _driver.FindElement(By.Id("herramientaParaAlquilar_" + herramientaNombre)).Click();
         }
 
+
         public void RemoveHerramientaDeCarritoAlquiler(string herramientaNombre)
         {
             WaitForBeingClickable(By.Id("eliminarHerramienta_" + herramientaNombre));
