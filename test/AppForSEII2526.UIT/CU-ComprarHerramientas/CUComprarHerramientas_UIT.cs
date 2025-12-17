@@ -237,5 +237,58 @@ namespace AppForSEII2526.UIT.CU_ComprarHerramientas
         }
 
 
+        //Prueba Examen
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+
+        public void UC1_PruebaExamen()
+        {
+            //Arrange
+            var filtroMaterial = "Plastico";
+            decimal filtroPrecio = 1.3M;
+            InitialStepsForComprarHerramientas();
+            Thread.Sleep(2000);
+
+
+            //Act
+
+            seleccionarHerramientasParaComprar_PO.BuscarHerramientas(0,filtroMaterial);
+            Thread.Sleep(1000);
+            seleccionarHerramientasParaComprar_PO.AnadirHerramientaACarrito(herramienta2);
+            Thread.Sleep(2000);
+            seleccionarHerramientasParaComprar_PO.BuscarHerramientas(filtroPrecio, " ");
+            Thread.Sleep(1000);
+            seleccionarHerramientasParaComprar_PO.AnadirHerramientaACarrito(herramienta3);
+            Thread.Sleep(1000);
+            seleccionarHerramientasParaComprar_PO.PulsarComprarHerramientas();
+            Thread.Sleep(1000);
+            crearCompra_PO.modificarCarrito();
+            Thread.Sleep(1000);
+            seleccionarHerramientasParaComprar_PO.EliminarHerramientaDeCarrito(herramienta2);
+            Thread.Sleep(500);
+            seleccionarHerramientasParaComprar_PO.PulsarComprarHerramientas();
+            Thread.Sleep(1000);
+            crearCompra_PO.RellenarFormularioCompra("Lucia", "Martinez", "Calle Tuerca");
+            Thread.Sleep(2000);
+            crearCompra_PO.RellenarDescripcionHerramientas("Tuerca de Acero", herramienta3);
+            Thread.Sleep(500);
+
+            crearCompra_PO.rellenarCantidad(1, herramienta3);
+            Thread.Sleep(500);
+            crearCompra_PO.pulsarComprar();
+            Thread.Sleep(2000);
+            crearCompra_PO.confirmarDialogo();
+            Thread.Sleep(500);
+
+            //Assert
+
+            Assert.True(detallesCompra_PO.CheckDetallesCompra("Lucia", "Martinez", "Calle Tuerca", precio3, DateTime.Today));
+
+            var expectedDetallesHerramienta = new List<string[]> { new string[] { herramienta3, material1, "1", "Tuerca de Acero", precio3 }, };
+            Assert.True(detallesCompra_PO.CheckListaHerramientasCompradas(expectedDetallesHerramienta));
+
+        }
+
+
     }
 }
